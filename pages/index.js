@@ -7,10 +7,46 @@ import { useRouter } from 'next/router';
 import appConfig from '../config.json';
 
 
+// export async function getServerSideProps() {
+//         // Fetch data from external API
+//         const res = await fetch(`https://api.github.com/aguirreLCD.png`)
+//         const data = await res.json()
+//         console.log(data)
+
+//         // Pass data to the page via props
+//         return { props: { data } }
+
+// }
+
+
+//  function MyComponent() {
+//     const [data, setData] = useState([])
+
+//     useEffect(() => {
+//         (async () => {
+//             const response = await fetch("https://api.github.com/users/aguirreLCD")
+//             const data = await response.json()
+//             setData(data)
+//             const name = MyComponent.username;
+//             console.log(name)
+
+//             const city = MyComponent.location;
+//             console.log(city)
+
+
+//             return { props: { data } }
+//         })()
+//     }, [])
+
+
+// }
+
+
 function Title(props) {
-    // console.log(props);
-    // console.log(props.children);
+    console.log(props);
+    console.log(props.children);
     const Tag = props.tag || 'h1';
+    console.log(Tag)
 
     return (
 
@@ -18,7 +54,7 @@ function Title(props) {
             <Tag>{props.children}</Tag>
             <style jsx>{`
                 ${Tag} {
-                    color: ${appConfig.theme.colors.neutrals['200']};
+                    color: ${appConfig.theme.colors.neutrals['200']};                   
                     font-size: 24px;
                     font-weight: 600;
                 }            
@@ -44,10 +80,35 @@ function Title(props) {
 // export default HomePage
 
 
-export default function PaginaInicial() {
+export default function PaginaInicial(props) {
+
     //   const username = 'aguirreLCD';
     const [username, setUsername] = React.useState('');
     const roteamento = useRouter();
+
+    const [dadosGit, setDadosGit] = React.useState({})
+
+
+
+
+    React.useEffect(() => {
+        fetch((`https://api.github.com/users/${username}`) )
+        .then((responseServer) => {
+            return responseServer.json();
+        })
+        .then((responseConverted) => {
+            console.log('response converted', responseConverted);
+            setDadosGit(responseConverted);
+        })
+    }, [username])
+
+    console.log('props git', props)
+
+    console.log(dadosGit.name)
+    console.log(dadosGit.login)
+    console.log(dadosGit.location)
+    
+
 
     return (
         <>
@@ -83,7 +144,19 @@ export default function PaginaInicial() {
                             event.preventDefault();
                             // console.log("submited");
                             // window.location.href = '/chat';
-                            roteamento.push('/chat');
+
+                            if (dadosGit.name === undefined) {
+                                roteamento.push("/404");
+
+                            } else {
+                                roteamento.push('/chat');
+                            }
+
+                            // {
+                            //     username.length > 2 ? roteamento.push('/chat') : roteamento.push("/404");
+                            //     // `https://github.com/${username}.png` ? roteamento.push('/404') : roteamento.push("/chat");
+                            // }
+
                         }}
                         styleSheet={{
                             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
@@ -170,7 +243,7 @@ export default function PaginaInicial() {
                             }}
 
 
-                            src={username.length > 2 ? `https://github.com/${username}.png` : ''}
+                            src={username.length > 2 ? `https://github.com/${username}.png` : 'images/404.png'}
 
                         />
 
@@ -184,7 +257,7 @@ export default function PaginaInicial() {
                                 borderRadius: '1000px'
                             }}
                         >
-                            {username.length > 2 ? username : 'Type name:'}
+                            {username.length > 2 ? username : 'Type name'}
 
                         </Text>
 
@@ -196,4 +269,19 @@ export default function PaginaInicial() {
             </Box>
         </>
     );
+
 }
+
+
+
+
+
+
+
+// const src = https://api.github.com/users/${username};
+
+//               fetch(src)
+//                 .then((res) => res.json())
+//                 .then((res) => console.log(res))
+//                 .catch((erro) => console.log(erro));
+//             }}

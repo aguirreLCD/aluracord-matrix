@@ -14,12 +14,15 @@ export default function ChatPage() {
     - [X] Vamos usar o onChange usa o useState (ter if pra caso seja enter pra limpar a variavel)
     - [X] Lista de mensagens 
     */
+    // keep the msg
+    const [mensagem, setMensagem] = React.useState('');
 
-   const [mensagem, setMensagem] = React.useState('');
-   const [listaDeMensagens, setListaDeMensagens] = React.useState([]);
+    // list of msg
+    const [listaDeMensagens, setListaDeMensagens] = React.useState([]);
 
-   // lógica do envio de mensagens  
-   function handleNovaMensagem(novaMensagem) {
+    // logic to send msg
+    function handleNovaMensagem(novaMensagem) {
+        // each msg  = object
         const mensagem = {
             id: listaDeMensagens.length + 1,
             de: 'lili',
@@ -32,6 +35,19 @@ export default function ChatPage() {
         ]);
         setMensagem('');
     }
+
+     // logic delete msg
+    function handleDeleteMessage(mensagemAtual) {
+
+        const msgId = mensagemAtual.id;
+        console.log(msgId);
+
+        const messagesListFiltered = listaDeMensagens.filter((mensagem) => {
+            return mensagem.id != msgId
+        })
+        setListaDeMensagens(messagesListFiltered)     
+    }
+
 
     return (
         <Box
@@ -70,7 +86,7 @@ export default function ChatPage() {
                         padding: '16px',
                     }}
                 >
-                    <MessageList mensagens={listaDeMensagens} />
+                    <MessageList mensagens={listaDeMensagens}  handleDeleteMessage={handleDeleteMessage}/>
                     {/* {listaDeMensagens.map((mensagemAtual) => {
                         return (
                             <li key={mensagemAtual.id}>
@@ -84,12 +100,12 @@ export default function ChatPage() {
                             display: 'flex',
                             alignItems: 'center',
                         }}
-                        onSubmit={ (event) => {   
+                        onSubmit={(event) => {
                             event.preventDefault();
-                            handleNovaMensagem(mensagem);                            
+                            handleNovaMensagem(mensagem);
                         }}
                     >
-                        
+
                         <TextField
                             value={mensagem}
                             onChange={(event) => {
@@ -154,7 +170,11 @@ function Header() {
 }
 
 function MessageList(props) {
+
+    const handleDeleteMessage = props.handleDeleteMessage;
+
     console.log(props);
+
     return (
         <Box
             tag="ul"
@@ -209,6 +229,25 @@ function MessageList(props) {
                             >
                                 {(new Date().toLocaleDateString())}
                             </Text>
+
+                            <Button                            
+                                styleSheet={{
+                                    borderRadius: '25%',
+                                    marginLeft: '20px'
+                                }}
+                                variant='tertiary'
+                                colorVariant='dark'
+                                size='xs'
+                                label='Delete'
+                                buttonColors={{
+                                    mainColor: appConfig.theme.colors.neutrals['000'],
+                                }}                                
+                                onClick={(event) => {
+                                    event.preventDefault()
+                                    handleDeleteMessage(mensagem)
+                                }}
+                            />
+
                         </Box>
                         {mensagem.texto}
                     </Text>
