@@ -7,49 +7,13 @@ import { useRouter } from 'next/router';
 import appConfig from '../config.json';
 
 
-// export async function getServerSideProps() {
-//         // Fetch data from external API
-//         const res = await fetch(`https://api.github.com/aguirreLCD.png`)
-//         const data = await res.json()
-//         console.log(data)
-
-//         // Pass data to the page via props
-//         return { props: { data } }
-
-// }
-
-
-//  function MyComponent() {
-//     const [data, setData] = useState([])
-
-//     useEffect(() => {
-//         (async () => {
-//             const response = await fetch("https://api.github.com/users/aguirreLCD")
-//             const data = await response.json()
-//             setData(data)
-//             const name = MyComponent.username;
-//             console.log(name)
-
-//             const city = MyComponent.location;
-//             console.log(city)
-
-
-//             return { props: { data } }
-//         })()
-//     }, [])
-
-
-// }
-
-
 function Title(props) {
-    console.log(props);
-    console.log(props.children);
+    // console.log(props);
+    // console.log(props.children);
     const Tag = props.tag || 'h1';
-    console.log(Tag)
+    // console.log(Tag)
 
     return (
-
         <>
             <Tag>{props.children}</Tag>
             <style jsx>{`
@@ -63,33 +27,13 @@ function Title(props) {
     );
 }
 
+export default function PaginaInicial() {
 
-// React Component
-// function HomePage() {
-
-//     // JSX
-//     return (        
-//         <div>
-//             <GlobalStyle ></GlobalStyle>
-//             <Title tag="h2">Welcome!</Title>
-//             <h2>Aluracord</h2> 
-//         </div>
-//     )
-// }
-
-// export default HomePage
-
-
-export default function PaginaInicial(props) {
-
-    //   const username = 'aguirreLCD';
     const [username, setUsername] = React.useState('');
-    const roteamento = useRouter();
 
-    const [dadosGit, setDadosGit] = React.useState({})
+    const rout = useRouter();
 
-
-
+    const [dataGit, setDataGit] = React.useState({})
 
     React.useEffect(() => {
         fetch((`https://api.github.com/users/${username}`) )
@@ -98,18 +42,15 @@ export default function PaginaInicial(props) {
         })
         .then((responseConverted) => {
             console.log('response converted', responseConverted);
-            setDadosGit(responseConverted);
+            setDataGit(responseConverted);
         })
     }, [username])
 
-    console.log('props git', props)
-
-    console.log(dadosGit.name)
-    console.log(dadosGit.login)
-    console.log(dadosGit.location)
+    // console.log('props git', props)
+    // console.log(dataGit.name)
+    console.log(dataGit.login)
+    // console.log(dataGit.location)
     
-
-
     return (
         <>
             <Box
@@ -120,7 +61,6 @@ export default function PaginaInicial(props) {
                     backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
                 }}
             >
-
                 <Box
                     styleSheet={{
                         display: 'flex',
@@ -136,7 +76,6 @@ export default function PaginaInicial(props) {
                         backgroundColor: appConfig.theme.colors.neutrals[700],
                     }}
                 >
-
                     {/* Formulário */}
                     <Box
                         as="form"
@@ -144,17 +83,15 @@ export default function PaginaInicial(props) {
                             event.preventDefault();
                             // console.log("submited");
                             // window.location.href = '/chat';
-
-                            if (dadosGit.name === undefined) {
-                                roteamento.push("/404");
-
+                            if (dataGit.name === undefined) {
+                                rout.push("/404");
                             } else {
-                                roteamento.push('/chat');
+                                // rout.push('/chat');
+                                rout.push(`/chat?username=${username}`);
                             }
-
                             // {
-                            //     username.length > 2 ? roteamento.push('/chat') : roteamento.push("/404");
-                            //     // `https://github.com/${username}.png` ? roteamento.push('/404') : roteamento.push("/chat");
+                            //     username.length > 2 ? rout.push('/chat') : rout.push("/404");
+                            //     // `https://github.com/${username}.png` ? rout.push('/404') : rout.push("/chat");
                             // }
 
                         }}
@@ -163,9 +100,6 @@ export default function PaginaInicial(props) {
                             width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
                         }}
                     >
-
-
-
                         <Title tag="h2">Boas vindas de volta!</Title>
 
                         <Text
@@ -175,18 +109,16 @@ export default function PaginaInicial(props) {
                                 color: appConfig.theme.colors.neutrals[300]
                             }}
                         >
-
                             {appConfig.name}
 
                         </Text>
 
-
                         <TextField
                             value={username}
                             onChange={function (event) {
-                                console.log("user type", event.target.value);
+                                // console.log("user type", event.target.value);
                                 const valor = event.target.value;
-                                console.log(valor)
+                                // console.log(valor)
                                 setUsername(valor);
                             }}
                             fullWidth
@@ -200,7 +132,6 @@ export default function PaginaInicial(props) {
                             }}
                         />
 
-
                         <Button
                             type='submit'
                             label='Entrar'
@@ -213,7 +144,6 @@ export default function PaginaInicial(props) {
                             }}
                             disabled={username.length < 3}
                         />
-
                     </Box>
                     {/* Formulário */}
 
@@ -235,18 +165,13 @@ export default function PaginaInicial(props) {
                         }}
                     >
 
-
                         <Image
                             styleSheet={{
                                 borderRadius: '50%',
                                 marginBottom: '16px',
                             }}
-
-
                             src={username.length > 2 ? `https://github.com/${username}.png` : 'images/404.png'}
-
                         />
-
 
                         <Text
                             variant="body4"
@@ -260,28 +185,10 @@ export default function PaginaInicial(props) {
                             {username.length > 2 ? username : 'Type name'}
 
                         </Text>
-
                     </Box>
                     {/* Photo Area */}
-
-
                 </Box>
             </Box>
         </>
     );
-
 }
-
-
-
-
-
-
-
-// const src = https://api.github.com/users/${username};
-
-//               fetch(src)
-//                 .then((res) => res.json())
-//                 .then((res) => console.log(res))
-//                 .catch((erro) => console.log(erro));
-//             }}

@@ -31,7 +31,7 @@ function GlobalStyle() {
 
 
 export default function MyApp({ Component, pageProps }) {
-    console.log("all pages");
+    // console.log("all pages");
     return(
         <>
             <GlobalStyle />
