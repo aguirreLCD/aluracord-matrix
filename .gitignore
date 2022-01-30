@@ -1,9 +1,8 @@
 .DS_Store
 **/.DS_Store
-**/.chat_page.js
-**/chat_page.js
-chatpg.js
-chat_page.js
+*/DS_Store
+*.DS_Store
+
 
 # Logs
 logs
