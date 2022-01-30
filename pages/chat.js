@@ -1,19 +1,31 @@
 import { Box, Text, TextField, Image, Button } from '@skynexui/components';
 import React from 'react';
 import appConfig from '../config.json';
-
 import { createClient } from '@supabase/supabase-js';
 import { useRouter } from 'next/router';
+import { ButtonSendSticker } from '../src/components/ButtonSendSticker';
 
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzI4Nzc4OSwiZXhwIjoxOTU4ODYzNzg5fQ.brk1eqpTGAjuj8nOsNF2PV3h3w_TdGiP17yE4g3u9Eo';
 const SUPABASE_URL = 'https://vwqmratpfheywhgczkir.supabase.co';
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+function listenMessage(addMessage) {
+    return supabaseClient
+        .from('messages')
+        .on('INSERT', (liveResponse) => {
+            console.log('live res ', liveResponse);
+            addMessage(liveResponse.new);
+            console.log('live res ', liveResponse);
+
+        })
+        .subscribe();
+}
+
 export default function ChatPage() {
 
     const router = useRouter();
-    const { username } = router.query;
-    console.log(username)
+    const loggedUser = router.query.username;
+    // const { username } = router.query;
 
     // keep the msg
     const [message, setMessage] = React.useState('');
@@ -30,23 +42,61 @@ export default function ChatPage() {
                 console.log('data', data)
                 setMessageList(data);
             });
-    }, []); 
 
-    console.log()
+        // const subscription = listenMessage((addNewMessage) => {
+        //     console.log('New msg: ', addNewMessage);
+        //     console.log('messageList: ', messageList);
+
+        //     setMessageList((valorAtualDaLista) => {
+        //         console.log('valor atual da lista: ', valorAtualDaLista);
+        //         return [
+        //             addNewMessage,
+        //             ...valorAtualDaLista,
+        //         ]
+        //     });
+        // });
+
+        // return () => {
+        //     subscription.unsubscribe();
+        // }
+
+        listenMessage((addNewMessage) => {
+            console.log('New msg: ', addNewMessage);
+            console.log('messageList: ', messageList);
+
+            setMessageList((valorAtualDaLista) => {
+                console.log('valor atual da lista: ', valorAtualDaLista);
+                return [
+                    addNewMessage,
+                    ...valorAtualDaLista,
+                ]
+            });
+        });
+
+        // return () => {
+        //     subscription.unsubscribe();
+        // }
+            
+
+
+
+
+    }, []);
+
 
     // logic to send msg
     function handleNewMessage(newMessage) {
         // each msg  = object
         const message = {
             // id: messageList.length + 1,
-            from: username,
+            from: loggedUser,
             text: newMessage,
         };
 
         supabaseClient
             .from('messages')
             .insert([
-                message              
+                message
             ])
             .then(({ data }) => {
                 console.log('creating msg', data);
@@ -54,8 +104,9 @@ export default function ChatPage() {
                     data[0],
                     ...messageList,
                 ]);
-                setMessage('');
-            });       
+            });
+
+        setMessage('');
     }
 
 
@@ -76,7 +127,7 @@ export default function ChatPage() {
 
 
 
-      // logic delete msg
+    // logic delete msg
     // function handleDeleteMessage(mensagemAtual) {
 
     //     const msgId = mensagemAtual.id;
@@ -127,8 +178,8 @@ export default function ChatPage() {
                     }}
                 >
                     {/* <MessageList messages={messageList} handleDeleteMessage={handleDeleteMessage}  /> */}
-                    <MessageList messages={messageList}  />
-                    
+                    <MessageList messages={messageList} />
+
                     <Box
                         as="form"
                         styleSheet={{
@@ -178,6 +229,14 @@ export default function ChatPage() {
                                 mainColorStrong: appConfig.theme.colors.primary[600],
                             }}
                             disabled={message.length < 1}
+                        />
+
+                        {/* CallBack */}
+                        <ButtonSendSticker
+                            onStickerClick={(sticker) => {
+                                console.log('save sticker in db', sticker);
+                                handleNewMessage(`:sticker:${sticker}`);
+                            }}
                         />
                     </Box>
                 </Box>
@@ -282,7 +341,15 @@ function MessageList(props) {
                             /> */}
 
                         </Box>
-                        {message.text}
+                        {/* {message.text} */}
+
+                        {message.text.startsWith(':sticker:')
+                            ? (
+                                <Image src={message.text.replace(':sticker:', '')} />
+                            )
+                            : (
+                                message.text
+                            )}
                     </Text>
                 );
             })}
