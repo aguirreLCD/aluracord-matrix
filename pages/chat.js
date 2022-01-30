@@ -43,24 +43,7 @@ export default function ChatPage() {
                 setMessageList(data);
             });
 
-        // const subscription = listenMessage((addNewMessage) => {
-        //     console.log('New msg: ', addNewMessage);
-        //     console.log('messageList: ', messageList);
-
-        //     setMessageList((valorAtualDaLista) => {
-        //         console.log('valor atual da lista: ', valorAtualDaLista);
-        //         return [
-        //             addNewMessage,
-        //             ...valorAtualDaLista,
-        //         ]
-        //     });
-        // });
-
-        // return () => {
-        //     subscription.unsubscribe();
-        // }
-
-        listenMessage((addNewMessage) => {
+        const subscription = listenMessage((addNewMessage) => {
             console.log('New msg: ', addNewMessage);
             console.log('messageList: ', messageList);
 
@@ -72,6 +55,23 @@ export default function ChatPage() {
                 ]
             });
         });
+
+        return () => {
+            subscription.unsubscribe();
+        }
+
+        // listenMessage((addNewMessage) => {
+        //     console.log('New msg: ', addNewMessage);
+        //     console.log('messageList: ', messageList);
+
+        //     setMessageList((valorAtualDaLista) => {
+        //         console.log('valor atual da lista: ', valorAtualDaLista);
+        //         return [
+        //             addNewMessage,
+        //             ...valorAtualDaLista,
+        //         ]
+        //     });
+        // });
 
         // return () => {
         //     subscription.unsubscribe();
@@ -100,10 +100,10 @@ export default function ChatPage() {
             ])
             .then(({ data }) => {
                 console.log('creating msg', data);
-                setMessageList([
-                    data[0],
-                    ...messageList,
-                ]);
+                // setMessageList([
+                //     data[0],
+                //     ...messageList,
+                // ]);
             });
 
         setMessage('');
