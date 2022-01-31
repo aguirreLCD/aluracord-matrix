@@ -5,10 +5,6 @@ import { createClient } from '@supabase/supabase-js';
 import { useRouter } from 'next/router';
 import { ButtonSendSticker } from '../src/components/ButtonSendSticker';
 
-// const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzI4Nzc4OSwiZXhwIjoxOTU4ODYzNzg5fQ.brk1eqpTGAjuj8nOsNF2PV3h3w_TdGiP17yE4g3u9Eo';
-// const SUPABASE_URL = 'https://vwqmratpfheywhgczkir.supabase.co';
-// const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
 // export async function getServerSideProps(context) {
 //     return {
 //       props: {
@@ -20,14 +16,10 @@ import { ButtonSendSticker } from '../src/components/ButtonSendSticker';
 //     }
 //   }
 
-
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-// console.log(SUPABASE_ANON_KEY);
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
-// console.log(SUPABASE_URL);
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// {"message":"no Route matched with those values"}
 
 
 function listenMessage(addMessage) {
