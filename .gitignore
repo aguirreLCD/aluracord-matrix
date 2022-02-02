@@ -4,6 +4,8 @@
 *.DS_Store
 
 .env.local
+delete.js
+
 
 # Logs
 logs

@@ -5,38 +5,39 @@ import { createClient } from '@supabase/supabase-js';
 import { useRouter } from 'next/router';
 import { ButtonSendSticker } from '../src/components/ButtonSendSticker';
 
-// export async function getServerSideProps(context) {
-//     return {
-//       props: {
-//             SUPABASE_URL: process.env.SUPERBASE_URL,
-//             SUPABASE_ANON_KEY: process.env.SUPERBASE_ANON_KEY,
-            
-            
-//         }, 
-//     }
-//   }
 
-
-// https://aluracord-matrix-tau-five.vercel.app/
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 
 
-function listenMessage(addMessage) {
-    return supabaseClient
-        .from('messages')
-        .on('INSERT', (liveResponse) => {
-            console.log('live res ', liveResponse);
-            addMessage(liveResponse.new);
-            console.log('live res ', liveResponse);
-
-        })
-        .subscribe();
-}
-
 export default function ChatPage() {
+    function listenMessage(response) {
+        return supabaseClient
+            .from('messages')
+            .on('INSERT', (liveResponse) => {
+                console.log('live res ', liveResponse);
+                // response(liveResponse.new);
+                response(liveResponse);
+                console.log('live res ', liveResponse);
+            })
+            .on('DELETE', (liveResponse) => {
+                response(liveResponse.old.id);
+                
+                console.log('live response to del', liveResponse);
+                console.log('old', liveResponse.old);
+                console.log(liveResponse.old.id);
+
+
+                // setMessageList( (valorAtualDaLista) => {
+                //     valorAtualDaLista.filter(
+                //         (message) => message.id !== liveResponseDel.old.id) 
+                // });
+            })
+            .subscribe();
+    }
+    
 
     const router = useRouter();
     const loggedUser = router.query.username;
@@ -58,44 +59,30 @@ export default function ChatPage() {
                 setMessageList(data);
             });
 
-        const subscription = listenMessage((addNewMessage) => {
-            console.log('New msg: ', addNewMessage);
-            console.log('messageList: ', messageList);
+        const subscription = listenMessage((response) => {
+            // if INSERT else DELETE 
+            if (response.eventType === "INSERT") {
+                console.log('New msg: ', response);
+                console.log('messageList: ', messageList);
 
-            setMessageList((valorAtualDaLista) => {
-                console.log('valor atual da lista: ', valorAtualDaLista);
-                return [
-                    addNewMessage,
-                    ...valorAtualDaLista,
-                ]
-            });
+                setMessageList((valorAtualDaLista) => {
+                    console.log('valor atual da lista: ', valorAtualDaLista);
+                    return [
+                        response.new,
+                        ...valorAtualDaLista,
+                    ]
+                });
+            } else {
+                setMessageList((valorAtualDaLista) => 
+                    valorAtualDaLista.filter((valor) => valor.id !== response)
+                );
+            }
+            
         });
 
         return () => {
             subscription.unsubscribe();
         }
-
-        // listenMessage((addNewMessage) => {
-        //     console.log('New msg: ', addNewMessage);
-        //     console.log('messageList: ', messageList);
-
-        //     setMessageList((valorAtualDaLista) => {
-        //         console.log('valor atual da lista: ', valorAtualDaLista);
-        //         return [
-        //             addNewMessage,
-        //             ...valorAtualDaLista,
-        //         ]
-        //     });
-        // });
-
-        // return () => {
-        //     subscription.unsubscribe();
-        // }
-            
-
-
-
-
     }, []);
 
 
@@ -122,37 +109,7 @@ export default function ChatPage() {
             });
 
         setMessage('');
-    }
-
-
-    //  logic to del msg
-    // function handleDeleteMessage(id) {
-    //     supabaseClient
-    //         .from('messages')
-    //         .delete()
-    //         .eq('id', id)
-    //         .then(({ data }) => {
-    //             console.log('del msg', data)
-    //             const newList = messageList.filter(
-    //                 (message) => message.id != id
-    //              );
-    //             setMessageList(newList);
-    //         });  
-    // }
-
-
-
-    // logic delete msg
-    // function handleDeleteMessage(mensagemAtual) {
-
-    //     const msgId = mensagemAtual.id;
-    //     console.log(msgId);
-
-    //     const messagesListFiltered = listaDeMensagens.filter((mensagem) => {
-    //         return mensagem.id != msgId
-    //     });
-    //     setListaDeMensagens(messagesListFiltered); 
-    // }
+        }
 
 
     return (
@@ -193,6 +150,7 @@ export default function ChatPage() {
                     }}
                 >
                     {/* <MessageList messages={messageList} handleDeleteMessage={handleDeleteMessage}  /> */}
+                    {/* <MessageList messages={messageList} onDelete={handleDeleteMessage}/> */}
                     <MessageList messages={messageList} />
 
                     <Box
@@ -279,8 +237,20 @@ function Header() {
 }
 
 function MessageList(props) {
-    // const handleDeleteMessage = props.handleDeleteMessage;
-    // console.log(props);
+    console.log('props', props);
+
+    async function handleDeleteMessage(old) {
+        await supabaseClient
+            .from('messages')
+            .delete()
+            .match({id: old})
+            // .eq('id', old)
+            .then(() => {
+                console.log('old del', old);
+            });
+        // return old;
+    }
+
 
     return (
         <Box
@@ -337,7 +307,7 @@ function MessageList(props) {
                                 {(new Date().toLocaleDateString())}
                             </Text>
 
-                            {/* <Button                            
+                            <Button
                                 styleSheet={{
                                     borderRadius: '25%',
                                     marginLeft: '20px'
@@ -348,23 +318,25 @@ function MessageList(props) {
                                 label='Delete'
                                 buttonColors={{
                                     mainColor: appConfig.theme.colors.neutrals['000'],
-                                }}                                
-                                onClick={(event) => {
-                                    event.preventDefault()
-                                    handleDeleteMessage(message)
                                 }}
-                            /> */}
+                                onClick={(event) => {
+                                    // event.preventDefault();
+                                    console.log('msg id', message.id);
+                                    console.log('message btn', message);
+                                    handleDeleteMessage(message.id);
+                                }}
+                            />
 
                         </Box>
-                        {/* {message.text} */}
+                        {message.text}
 
-                        {message.text.startsWith(':sticker:')
+                        {/* {message.text.startsWith(':sticker:')
                             ? (
                                 <Image src={message.text.replace(':sticker:', '')} />
                             )
                             : (
                                 message.text
-                            )}
+                        )} */}
                     </Text>
                 );
             })}
