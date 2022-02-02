@@ -47,8 +47,8 @@ export default function PaginaInicial() {
     }, [username])
 
     // console.log('props git', props)
-    // console.log(dataGit.name)
-    console.log(dataGit.login)
+    console.log('dataGit', dataGit);
+    console.log('data git', dataGit.login);
     // console.log(dataGit.location)
     
     return (
@@ -100,7 +100,7 @@ export default function PaginaInicial() {
                             width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
                         }}
                     >
-                        <Title tag="h2">Boas vindas de volta!</Title>
+                        <Title tag="h2">Welcome!</Title>
 
                         <Text
                             variant="body3"
@@ -110,6 +110,7 @@ export default function PaginaInicial() {
                             }}
                         >
                             {appConfig.name}
+
 
                         </Text>
 
@@ -134,7 +135,7 @@ export default function PaginaInicial() {
 
                         <Button
                             type='submit'
-                            label='Entrar'
+                            label='Enter'
                             fullWidth
                             buttonColors={{
                                 contrastColor: appConfig.theme.colors.neutrals["000"],
@@ -184,7 +185,25 @@ export default function PaginaInicial() {
                         >
                             {username.length > 2 ? username : 'Type name'}
 
+                   
                         </Text>
+                        
+                                             
+                        
+                        <Text
+                            variant="body3"
+                            styleSheet={{
+                                marginBottom: '32px',
+                                padding: '11px 7px',
+                                color: appConfig.theme.colors.neutrals[300]
+                            }}
+                        >
+                            {dataGit.bio}
+                        </Text>
+
+                        
+
+
                     </Box>
                     {/* Photo Area */}
                 </Box>

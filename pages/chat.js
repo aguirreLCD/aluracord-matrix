@@ -13,27 +13,23 @@ const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 
 export default function ChatPage() {
+
+    
     function listenMessage(response) {
         return supabaseClient
             .from('messages')
             .on('INSERT', (liveResponse) => {
-                console.log('live res ', liveResponse);
-                // response(liveResponse.new);
+                console.log('live res new ', liveResponse.new);
                 response(liveResponse);
+                // response(liveResponse.new);
                 console.log('live res ', liveResponse);
             })
             .on('DELETE', (liveResponse) => {
-                response(liveResponse.old.id);
                 
                 console.log('live response to del', liveResponse);
                 console.log('old', liveResponse.old);
-                console.log(liveResponse.old.id);
-
-
-                // setMessageList( (valorAtualDaLista) => {
-                //     valorAtualDaLista.filter(
-                //         (message) => message.id !== liveResponseDel.old.id) 
-                // });
+                console.log(liveResponse.old.id);               
+                response(liveResponse.old.id);
             })
             .subscribe();
     }
@@ -41,6 +37,8 @@ export default function ChatPage() {
 
     const router = useRouter();
     const loggedUser = router.query.username;
+    console.log('logged user ', loggedUser);
+
     // const { username } = router.query;
 
     // keep the msg
@@ -109,7 +107,7 @@ export default function ChatPage() {
             });
 
         setMessage('');
-        }
+    }
 
 
     return (
@@ -151,7 +149,7 @@ export default function ChatPage() {
                 >
                     {/* <MessageList messages={messageList} handleDeleteMessage={handleDeleteMessage}  /> */}
                     {/* <MessageList messages={messageList} onDelete={handleDeleteMessage}/> */}
-                    <MessageList messages={messageList} />
+                    <MessageList messages={messageList} loggedUser={loggedUser}  />
 
                     <Box
                         as="form"
@@ -236,8 +234,9 @@ function Header() {
     )
 }
 
-function MessageList(props) {
+function MessageList(props, loggedUser) {
     console.log('props', props);
+    console.log('logged user', props.loggedUser);
 
     async function handleDeleteMessage(old) {
         await supabaseClient
@@ -305,8 +304,10 @@ function MessageList(props) {
                                 tag="span"
                             >
                                 {(new Date().toLocaleDateString())}
+                                {/* {message.created_at} */}
                             </Text>
 
+                            {/* {loggedUser === message.from ?  */}
                             <Button
                                 styleSheet={{
                                     borderRadius: '25%',
@@ -319,20 +320,31 @@ function MessageList(props) {
                                 buttonColors={{
                                     mainColor: appConfig.theme.colors.neutrals['000'],
                                 }}
-                                onClick={(event) => {
-                                    // event.preventDefault();
+                                onClick={() => { 
+                                    // if (message.from === loggedUser) {
                                     console.log('msg id', message.id);
                                     console.log('message btn', message);
+                                    console.log('message btn f', message.from);
                                     handleDeleteMessage(message.id);
+
+                                    // }
                                 }}
+                                disabled={message.from != props.loggedUser}
+                            
                             />
 
+                            {/* : null } */}
                         </Box>
+
                         {/* {message.text} */}
 
                         {message.text.startsWith(':sticker:')
                             ? (
-                                <Image src={message.text.replace(':sticker:', '')} />
+                                <Image src={message.text.replace(':sticker:', '')}
+                                 styleSheet={{
+                                        width: '300px',
+                                 }}                                
+                                />
                             )
                             : (
                                 message.text
