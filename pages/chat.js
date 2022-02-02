@@ -328,15 +328,15 @@ function MessageList(props) {
                             />
 
                         </Box>
-                        {message.text}
+                        {/* {message.text} */}
 
-                        {/* {message.text.startsWith(':sticker:')
+                        {message.text.startsWith(':sticker:')
                             ? (
                                 <Image src={message.text.replace(':sticker:', '')} />
                             )
                             : (
                                 message.text
-                        )} */}
+                        )}
                     </Text>
                 );
             })}
