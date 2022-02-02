@@ -39,6 +39,9 @@ export default function Custom404() {
                 />
 
 
+                
+
+
                  <Box styleSheet={{ 
                      width: { xs: '100%', sm: '50%' }, 
                      textAlign: 'center', 

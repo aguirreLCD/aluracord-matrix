@@ -268,12 +268,13 @@ function MessageList(props, loggedUser) {
                     <Text
                         key={message.id}
                         tag="li"
-                        styleSheet={{
+                        styleSheet={{     
+                            color: appConfig.theme.colors.neutrals["100"],
                             borderRadius: '5px',
                             padding: '6px',
                             marginBottom: '12px',
                             hover: {
-                                backgroundColor: appConfig.theme.colors.neutrals[700],
+                                backgroundColor: appConfig.theme.colors.neutrals["700"],
                             }
                         }}
                     >
@@ -299,13 +300,56 @@ function MessageList(props, loggedUser) {
                                 styleSheet={{
                                     fontSize: '10px',
                                     marginLeft: '8px',
-                                    color: appConfig.theme.colors.neutrals[300],
+                                    color: appConfig.theme.colors.neutrals["300"],
                                 }}
                                 tag="span"
                             >
                                 {(new Date().toLocaleDateString())}
                                 {/* {message.created_at} */}
+                                {/* {((new Date()).toISOString()).toLocaleString('zh-TW')} */}
+                                {/* {((new Date()).toISOString()).toLocaleString()} */}
+                                {/* {(new Date()).toLocaleString('TW')} */}
                             </Text>
+
+                            <Text
+                                styleSheet={{
+                                    fontSize: '10px',
+                                    marginLeft: '8px',
+                                    color: appConfig.theme.colors.neutrals[200],
+                                }}
+                                tag="span"
+                            >
+                                {/* {(new Date().toLocaleDateString())} */}
+                                {message.created_at}
+                            </Text>
+
+
+
+                            <Button
+                                styleSheet={{
+                                    fontSize: '10px',
+                                    marginLeft: '8px',
+                                    color: appConfig.theme.colors.neutrals[200],
+                                }}
+                                variant='primary'
+                                colorVariant='neutral'
+                                tag="span"
+                                label='github'
+                                href={`https://github.com/${message.from}`}
+                            >
+                            </Button>
+
+
+
+
+
+
+
+
+
+
+
+
 
                             {/* {loggedUser === message.from ?  */}
                             <Button
@@ -343,6 +387,7 @@ function MessageList(props, loggedUser) {
                                 <Image src={message.text.replace(':sticker:', '')}
                                  styleSheet={{
                                         width: '300px',
+                                        
                                  }}                                
                                 />
                             )
