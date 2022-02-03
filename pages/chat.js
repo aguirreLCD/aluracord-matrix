@@ -5,17 +5,11 @@ import { createClient } from '@supabase/supabase-js';
 import { useRouter } from 'next/router';
 import { ButtonSendSticker } from '../src/components/ButtonSendSticker';
 
-
-
-
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-
-
 export default function ChatPage() {
-
     
     function listenMessage(response) {
         return supabaseClient
@@ -35,7 +29,6 @@ export default function ChatPage() {
             })
             .subscribe();
     }
-    
 
     const router = useRouter();
     const loggedUser = router.query.username;
@@ -77,14 +70,12 @@ export default function ChatPage() {
                     valorAtualDaLista.filter((valor) => valor.id !== response)
                 );
             }
-            
         });
 
         return () => {
             subscription.unsubscribe();
         }
     }, []);
-
 
     // logic to send msg
     function handleNewMessage(newMessage) {
@@ -110,7 +101,6 @@ export default function ChatPage() {
 
         setMessage('');
     }
-
 
     return (
         <Box
@@ -189,7 +179,6 @@ export default function ChatPage() {
                                 backgroundColor: appConfig.theme.colors.neutrals[800],
                                 marginRight: '12px',
                                 // color: message.from == props.loggedUser ? appConfig.theme.colors.neutrals["100"] : appConfig.theme.colors.neutrals["300"],
-
                                 color: appConfig.theme.colors.neutrals[200],
                             }}
                         />
@@ -233,22 +222,19 @@ function Header({loggedUser}) {
                     <Image
                         src={`https://github.com/${loggedUser}.png`}
                         styleSheet={{
-                        width: '30px',
-                        height: '30px',
-                        borderRadius: '50%',
-                        display: 'inline-block',
-                        marginRight: '8px',
-                        transition: 'ease .2s',
-                        hover: {
-                            width: '36px',
-                            height: '36px'
-                        }
+                            width: '30px',
+                            height: '30px',
+                            borderRadius: '50%',
+                            display: 'inline-block',
+                            marginRight: '8px',
+                            transition: 'ease .2s',
+                            hover: {
+                                width: '36px',
+                                height: '36px'
+                            }
                         }}
                     />
                 </Box>
-
-
-
 
                 <Button
                     variant='tertiary'
@@ -277,7 +263,6 @@ function MessageList(props, loggedUser) {
         // return old;
     }
 
-
     return (
         <Box
             tag="ul"
@@ -297,7 +282,7 @@ function MessageList(props, loggedUser) {
                         tag="li"
                         styleSheet={{  
                             display: 'flex', flexDirection: 'column',
-                            alignItems: message.from == props.loggedUser ? 'flex-end' : 'flex-start',   
+                            // alignItems: message.from == props.loggedUser ? 'flex-end' : 'flex-start',   
                             color: message.from == props.loggedUser ? appConfig.theme.colors.neutrals["100"] : appConfig.theme.colors.neutrals["200"],
                             borderRadius: '5px',
                             padding: '6px',
@@ -326,9 +311,6 @@ function MessageList(props, loggedUser) {
                                 {message.from}
                             </Text>
                             
-                            
-                            
-
                             <Text
                                 styleSheet={{
                                     fontSize: '10px',
@@ -343,26 +325,6 @@ function MessageList(props, loggedUser) {
                                 {new Date(message.created_at).toLocaleString('da-DK', {dateStyle: 'short',timeStyle: 'short'})}
                             </Text>
 
-{/* 
-
-                            <Button
-                                styleSheet={{
-                                    // fontSize: '1px',
-                                    marginLeft: '8px',
-                                    // color: appConfig.theme.colors.neutrals[200],
-                                    color: message.from == props.loggedUser ? appConfig.theme.colors.neutrals["100"] : appConfig.theme.colors.neutrals["200"],
-
-                                }}
-                                // variant='primary'
-                                variant='tertiary'
-                                colorVariant='neutral'
-                                tag="span"
-                                // fontSize='7px'
-                                size='xs'
-                                label='github'
-                                href={`https://github.com/${message.from}`}
-                            >
-                            </Button> */}
 
                             <Button
                                 styleSheet={{
@@ -374,11 +336,7 @@ function MessageList(props, loggedUser) {
                                 size='xs'
                                 colorVariant='light'
                                 href={`https://github.com/${message.from}`}
-
-
-                            
                             />
-
 
                             {/* {loggedUser === message.from ?  */}
                             <Button
@@ -391,11 +349,9 @@ function MessageList(props, loggedUser) {
                                 size='xs' 
                                 tag='span'
                                 iconName='trash'
-                               
                                 buttonColors={{
                                     mainColor: appConfig.theme.colors.neutrals['000'],
                                 }}
-                                // backgroundImage={`images/icons8-delete-view-50.png`}
                                 onClick={() => { 
                                     // if (message.from === loggedUser) {
                                     console.log('msg id', message.id);
@@ -406,16 +362,11 @@ function MessageList(props, loggedUser) {
                                     // }
                                 }}
                                 disabled={message.from != props.loggedUser}
-                            
-                                
                             />
-
                             {/* : null } */}
                         </Box>
-                        
 
                         {/* {message.text} */}
-
                         {message.text.startsWith(':sticker:')
                             ? (
                                 <Image src={message.text.replace(':sticker:', '')}

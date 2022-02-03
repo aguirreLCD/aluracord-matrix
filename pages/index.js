@@ -21,6 +21,7 @@ function Title(props) {
                     color: ${appConfig.theme.colors.neutrals['200']};                   
                     font-size: 24px;
                     font-weight: 600;
+                    margin-bottom: 13px;
                 }            
             `}</style>
         </>
@@ -100,7 +101,7 @@ export default function PaginaInicial() {
                             width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
                         }}
                     >
-                        <Title tag="h2">Welcome!</Title>
+                        <Title tag="h2">Welcome `:)</Title>
 
                         <Text
                             variant="body3"
