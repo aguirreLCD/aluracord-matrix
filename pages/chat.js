@@ -15,16 +15,15 @@ export default function ChatPage() {
         return supabaseClient
             .from('messages')
             .on('INSERT', (liveResponse) => {
-                console.log('live res new ', liveResponse.new);
+                // console.log('live res new ', liveResponse.new);
                 response(liveResponse);
                 // response(liveResponse.new);
-                console.log('live res ', liveResponse);
+                // console.log('live res ', liveResponse);
             })
             .on('DELETE', (liveResponse) => {
-                
-                console.log('live response to del', liveResponse);
-                console.log('old', liveResponse.old);
-                console.log(liveResponse.old.id);               
+                // console.log('live response to del', liveResponse);
+                // console.log('old', liveResponse.old);
+                // console.log(liveResponse.old.id);               
                 response(liveResponse.old.id);
             })
             .subscribe();
@@ -32,7 +31,7 @@ export default function ChatPage() {
 
     const router = useRouter();
     const loggedUser = router.query.username;
-    console.log('logged user ', loggedUser);
+    // console.log('logged user ', loggedUser);
 
     // const { username } = router.query;
 
@@ -48,18 +47,18 @@ export default function ChatPage() {
             .select('*')
             .order('id', { ascending: false })
             .then(({ data }) => {
-                console.log('data', data)
+                // console.log('data', data)
                 setMessageList(data);
             });
 
         const subscription = listenMessage((response) => {
             // if INSERT else DELETE 
             if (response.eventType === "INSERT") {
-                console.log('New msg: ', response);
-                console.log('messageList: ', messageList);
+                // console.log('New msg: ', response);
+                // console.log('messageList: ', messageList);
 
                 setMessageList((valorAtualDaLista) => {
-                    console.log('valor atual da lista: ', valorAtualDaLista);
+                    // console.log('valor atual da lista: ', valorAtualDaLista);
                     return [
                         response.new,
                         ...valorAtualDaLista,
@@ -141,7 +140,6 @@ export default function ChatPage() {
                 >
                     {/* <MessageList messages={messageList} handleDeleteMessage={handleDeleteMessage}  /> */}
                     {/* <MessageList messages={messageList} onDelete={handleDeleteMessage}/> */}
-                    {/* <Loading /> */}
                     <MessageList messages={messageList} loggedUser={loggedUser}  />
 
                     <Box
@@ -199,7 +197,7 @@ export default function ChatPage() {
                         {/* CallBack */}
                         <ButtonSendSticker
                             onStickerClick={(sticker) => {
-                                console.log('save sticker in db', sticker);
+                                // console.log('save sticker in db', sticker);
                                 handleNewMessage(`:sticker:${sticker}`);
                             }}
                         />
@@ -248,8 +246,8 @@ function Header({loggedUser}) {
 }
 
 function MessageList(props, loggedUser) {
-    console.log('props', props);
-    console.log('logged user', props.loggedUser);
+    // console.log('props', props);
+    // console.log('logged user', props.loggedUser);
 
     async function handleDeleteMessage(old) {
         await supabaseClient
@@ -281,9 +279,10 @@ function MessageList(props, loggedUser) {
                         key={message.id}
                         tag="li"
                         styleSheet={{  
-                            display: 'flex', flexDirection: 'column',
+                            // display: 'flex', flexDirection: 'column',
+                            backgroundColor: message.from == props.loggedUser ? appConfig.theme.colors.neutrals["500"] : appConfig.theme.colors.neutrals["600"],
                             // alignItems: message.from == props.loggedUser ? 'flex-end' : 'flex-start',   
-                            color: message.from == props.loggedUser ? appConfig.theme.colors.neutrals["100"] : appConfig.theme.colors.neutrals["200"],
+                            color: message.from == props.loggedUser ? appConfig.theme.colors.neutrals["gray2"] : appConfig.theme.colors.neutrals["gray1"],
                             borderRadius: '5px',
                             padding: '6px',
                             marginBottom: '12px',
@@ -304,6 +303,7 @@ function MessageList(props, loggedUser) {
                                     borderRadius: '50%',
                                     display: 'inline-block',
                                     marginRight: '8px',
+                                    
                                 }}
                                 src={`https://github.com/${message.from}.png`}
                             />
@@ -314,7 +314,8 @@ function MessageList(props, loggedUser) {
                             <Text
                                 styleSheet={{
                                     fontSize: '10px',
-                                    marginLeft: '8px',
+                                    marginLeft: '5px',
+                                    padding: '1px',
                                     // color: appConfig.theme.colors.neutrals[200],
                                     color: message.from == props.loggedUser ? appConfig.theme.colors.neutrals["100"] : appConfig.theme.colors.neutrals["200"],
 
@@ -328,9 +329,19 @@ function MessageList(props, loggedUser) {
 
                             <Button
                                 styleSheet={{
-                                    borderRadius: '15%',
-                                    marginLeft: '5px'
+                                    
+                                    // borderRadius: '5px',
+                                    // marginLeft: '5px',
+                                    padding: '1px'
+
+                                    // width: '20px',
+                                    // height: '20px',
+                                    // borderRadius: '5%',
+                                    // display: 'inline-block',
+                                    // marginRight: '8px',
                                 }}
+                                tag="span"
+
                                 iconName='github'
                                 variant='tertiary'
                                 size='xs'
@@ -341,8 +352,9 @@ function MessageList(props, loggedUser) {
                             {/* {loggedUser === message.from ?  */}
                             <Button
                                 styleSheet={{
-                                    borderRadius: '5%',
-                                    marginLeft: '5px'
+                                    padding: '1px'
+                                    // borderRadius: '5px',
+                                    // marginLeft: '5px'
                                 }}
                                 variant='tertiary'
                                 colorVariant='dark'
@@ -354,9 +366,9 @@ function MessageList(props, loggedUser) {
                                 }}
                                 onClick={() => { 
                                     // if (message.from === loggedUser) {
-                                    console.log('msg id', message.id);
-                                    console.log('message btn', message);
-                                    console.log('message btn f', message.from);
+                                    // console.log('msg id', message.id);
+                                    // console.log('message btn', message);
+                                    // console.log('message btn f', message.from);
                                     handleDeleteMessage(message.id);
 
                                     // }

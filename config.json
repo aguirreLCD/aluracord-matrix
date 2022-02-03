@@ -26,26 +26,19 @@
                 "700": "#212931",
                 "800": "#181F25",
                 "900": "#101418",
-                "999": "#080A0C"
+                "999": "#080A0C",
+                "gray1": "#F8F9FA",
+                "gray2": "#E9ECEF",
+                "gray3": "#DEE2E6",
+                "gray4": "#CED4DA",
+                "gray5": "#ADB5BD",
+                "gray6": "#6C757D",
+                "gray7": "#495057",
+                "gray8": "#343A40",
+                "gray9": "#212529"
             }
         }
     },
-    "loader": "../loader.png",
-    "stickersLoader": [
-        "../assets/stickers/sticker-001.png",
-        "../assets/stickers/sticker-002.png",
-        "../assets/stickers/sticker-003.png",
-        "../assets/stickers/sticker-004.png",
-        "../assets/stickers/sticker-005.png",
-        "../assets/stickers/sticker-006.png",
-        "../assets/stickers/sticker-007.png",
-        "../assets/stickers/sticker-008.png",
-        "../assets/stickers/sticker-009.png",
-        "../assets/stickers/sticker-010.png",
-        "../assets/stickers/sticker-011.png",
-        "../assets/stickers/sticker-012.png",
-        "../assets/stickers/sticker-013.png"
-    ],
     "stickers": [
         "https://www.alura.com.br/imersao-react-4/assets/figurinhas/Figurinha_1.png",
         "https://www.alura.com.br/imersao-react-4/assets/figurinhas/Figurinha_2.png",

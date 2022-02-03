@@ -48,8 +48,8 @@ export default function PaginaInicial() {
     }, [username])
 
     // console.log('props git', props)
-    console.log('dataGit', dataGit);
-    console.log('data git', dataGit.login);
+    // console.log('dataGit', dataGit);
+    // console.log('data git', dataGit.login);
     // console.log(dataGit.location)
     
     return (
@@ -112,7 +112,6 @@ export default function PaginaInicial() {
                         >
                             {appConfig.name}
 
-
                         </Text>
 
                         <TextField
@@ -148,7 +147,6 @@ export default function PaginaInicial() {
                         />
                     </Box>
                     {/* Formulário */}
-
 
                     {/* Photo Area */}
                     <Box
@@ -186,11 +184,7 @@ export default function PaginaInicial() {
                             }}
                         >
                             {username.length > 2 ? username : 'Type name'}
-
-                   
                         </Text>
-                        
-                                             
                         
                         <Text
                             variant="body3"
@@ -202,9 +196,6 @@ export default function PaginaInicial() {
                         >
                             {dataGit.bio}
                         </Text>
-
-                        
-
 
                     </Box>
                     {/* Photo Area */}

@@ -68,6 +68,7 @@ export default function MyApp({ Component, pageProps }) {
                 <link rel="icon" href="images/favicon-16x16.png" />
                 <title>Fun With Chats</title>
             </Head>
+            
             <GlobalStyle />
             <Component {...pageProps} />
         </>
