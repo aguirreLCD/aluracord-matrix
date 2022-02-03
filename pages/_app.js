@@ -66,7 +66,7 @@ export default function MyApp({ Component, pageProps }) {
             <Head>
                 <meta charSet="utf-8" />
                 <link rel="icon" href="images/favicon-16x16.png" />
-                <title>Aluracord</title>
+                <title>Fun With Chats</title>
             </Head>
             <GlobalStyle />
             <Component {...pageProps} />

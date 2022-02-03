@@ -1,9 +1,11 @@
-import { Box, Text, TextField, Image, Button } from '@skynexui/components';
+import { Box, Text, TextField, Image, Button, Icon } from '@skynexui/components';
 import React from 'react';
 import appConfig from '../config.json';
 import { createClient } from '@supabase/supabase-js';
 import { useRouter } from 'next/router';
 import { ButtonSendSticker } from '../src/components/ButtonSendSticker';
+
+
 
 
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -149,6 +151,7 @@ export default function ChatPage() {
                 >
                     {/* <MessageList messages={messageList} handleDeleteMessage={handleDeleteMessage}  /> */}
                     {/* <MessageList messages={messageList} onDelete={handleDeleteMessage}/> */}
+                    {/* <Loading /> */}
                     <MessageList messages={messageList} loggedUser={loggedUser}  />
 
                     <Box
@@ -340,7 +343,7 @@ function MessageList(props, loggedUser) {
                                 {new Date(message.created_at).toLocaleString('da-DK', {dateStyle: 'short',timeStyle: 'short'})}
                             </Text>
 
-
+{/* 
 
                             <Button
                                 styleSheet={{
@@ -359,22 +362,40 @@ function MessageList(props, loggedUser) {
                                 label='github'
                                 href={`https://github.com/${message.from}`}
                             >
-                            </Button>
+                            </Button> */}
+
+                            <Button
+                                styleSheet={{
+                                    borderRadius: '15%',
+                                    marginLeft: '5px'
+                                }}
+                                iconName='github'
+                                variant='tertiary'
+                                size='xs'
+                                colorVariant='light'
+                                href={`https://github.com/${message.from}`}
+
+
+                            
+                            />
 
 
                             {/* {loggedUser === message.from ?  */}
                             <Button
                                 styleSheet={{
-                                    borderRadius: '25%',
-                                    marginLeft: '20px'
+                                    borderRadius: '5%',
+                                    marginLeft: '5px'
                                 }}
                                 variant='tertiary'
                                 colorVariant='dark'
-                                size='xs'
-                                label='Delete'
+                                size='xs' 
+                                tag='span'
+                                iconName='trash'
+                               
                                 buttonColors={{
                                     mainColor: appConfig.theme.colors.neutrals['000'],
                                 }}
+                                // backgroundImage={`images/icons8-delete-view-50.png`}
                                 onClick={() => { 
                                     // if (message.from === loggedUser) {
                                     console.log('msg id', message.id);
@@ -386,10 +407,12 @@ function MessageList(props, loggedUser) {
                                 }}
                                 disabled={message.from != props.loggedUser}
                             
+                                
                             />
 
                             {/* : null } */}
                         </Box>
+                        
 
                         {/* {message.text} */}
 
