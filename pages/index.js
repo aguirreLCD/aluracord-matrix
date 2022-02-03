@@ -170,8 +170,9 @@ export default function PaginaInicial() {
                             styleSheet={{
                                 borderRadius: '50%',
                                 marginBottom: '16px',
+                                width: '100%'
                             }}
-                            src={username.length > 2 ? `https://github.com/${username}.png` : 'images/404.png'}
+                            src={username.length > 2 ? `https://github.com/${username}.png` : 'images/petss.png'}
                         />
 
                         <Text
