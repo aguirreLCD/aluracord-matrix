@@ -294,7 +294,7 @@ function MessageList(props, loggedUser) {
                         tag="li"
                         styleSheet={{  
                             display: 'flex', flexDirection: 'column',
-                            // alignItems: message.from == props.loggedUser ? 'flex-end' : 'flex-start',   
+                            alignItems: message.from == props.loggedUser ? 'flex-end' : 'flex-start',   
                             color: message.from == props.loggedUser ? appConfig.theme.colors.neutrals["100"] : appConfig.theme.colors.neutrals["200"],
                             borderRadius: '5px',
                             padding: '6px',
@@ -337,8 +337,6 @@ function MessageList(props, loggedUser) {
                                 tag="span"
                             >
                                 {/* {(new Date().toLocaleDateString())} */}
-                                {/* {message.created_at} */}
-
                                 {new Date(message.created_at).toLocaleString('da-DK', {dateStyle: 'short',timeStyle: 'short'})}
                             </Text>
 
