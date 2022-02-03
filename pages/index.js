@@ -42,7 +42,7 @@ export default function PaginaInicial() {
             return responseServer.json();
         })
         .then((responseConverted) => {
-            console.log('response converted', responseConverted);
+            // console.log('response converted', responseConverted);
             setDataGit(responseConverted);
         })
     }, [username])

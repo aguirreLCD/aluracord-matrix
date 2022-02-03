@@ -15,49 +15,62 @@ export default function Custom404() {
 
             }}
         >
-
-            <Box
-                styleSheet={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-
-                    width: '100%', maxWidth: '700px',
-                    borderRadius: '5px', padding: '32px', margin: '16px',
-                    boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
-
-                    backgroundColor: appConfig.theme.colors.neutrals[700],
-                }}
-            >
-
-                <Image
+                <Box
                     styleSheet={{
-                        width: '100%',
-
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexDirection: {
+                            xs: 'column',
+                            // sm: 'row',
+                        },
+                        width: '100%', maxWidth: '700px',
+                        borderRadius: '5px', padding: '3px', margin: '6px',
+                        backgroundColor: appConfig.theme.colors.neutrals[700],
                     }}
-                    src="images/404.png"
-                />
+                >
+
+                    <Text>
+                        <Button
+                            styleSheet={{ 
+                                padding: '15px',
+                                backgroundColor: appConfig.theme.colors.neutrals[700],
+                                marginTop: '10px',
+                                fontSize: '21px',
+                            }}
+
+                            variant='primary'
+                            colorVariant='dark'
+                            label='Home'
+                            href="/"
+                            iconName='home'
+                        />
+                                
+                    </Text>
 
 
-                
+                    <Box
+                        styleSheet={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
 
+                            width: '100%', maxWidth: '700px',
+                            borderRadius: '5px', padding: '10px', margin: '16px',
+                            backgroundColor: appConfig.theme.colors.neutrals[700],
+                        }}
+                    > 
 
-                 <Box styleSheet={{ 
-                     width: { xs: '100%', sm: '50%' }, 
-                     textAlign: 'center', 
-                     marginBottom: '32px'
-                    
-                     }} >
-                   
-                    <Button
-                        variant='primary'
-                        colorVariant='neutral'
-                        label='Home'
-                        href="/"
+                    <Image
+                        styleSheet={{
+                            width: '100%',
+                            maxWidth: '700px'                        
+                        }}
+                        src="images/404.png"
                     />
                     
-                </Box>
-
+                
+                </Box>              
             </Box>
         </Box>
     )
