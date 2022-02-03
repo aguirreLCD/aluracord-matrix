@@ -1,3 +1,9 @@
+import appConfig from '../config.json';
+import Head from 'next/head';
+
+
+
+
 function GlobalStyle() {
     return (
         <style global jsx>{`
@@ -9,8 +15,7 @@ function GlobalStyle() {
             }
             body {
                 font-family: 'Open Sans', sans-serif;
-            }
-            /* App fit Height */ 
+            }           
             html, body, #__next {
                 min-height: 100vh;
                 display: flex;
@@ -22,7 +27,7 @@ function GlobalStyle() {
             #__next > * {
                 flex: 1;
             }
-            /* ./App fit Height */ 
+            
         `}</style>
     );
 }
@@ -34,6 +39,12 @@ export default function MyApp({ Component, pageProps }) {
     // console.log("all pages");
     return(
         <>
+
+            <Head>
+                <meta charSet="utf-8" />
+                <link rel="icon" href="images/favicon-16x16.png" />
+                <title>Aluracord</title>
+            </Head>
             <GlobalStyle />
             <Component {...pageProps} />
         </>
