@@ -134,7 +134,7 @@ export default function ChatPage() {
                     padding: '32px',
                 }}
             >
-                <Header />
+                <Header loggedUser={loggedUser}/>
                 <Box
                     styleSheet={{
                         position: 'relative',
@@ -185,6 +185,8 @@ export default function ChatPage() {
                                 padding: '6px 8px',
                                 backgroundColor: appConfig.theme.colors.neutrals[800],
                                 marginRight: '12px',
+                                // color: message.from == props.loggedUser ? appConfig.theme.colors.neutrals["100"] : appConfig.theme.colors.neutrals["300"],
+
                                 color: appConfig.theme.colors.neutrals[200],
                             }}
                         />
@@ -216,13 +218,35 @@ export default function ChatPage() {
     )
 }
 
-function Header() {
+function Header({loggedUser}) {
     return (
         <>
             <Box styleSheet={{ width: '100%', marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} >
                 <Text variant='heading5'>
                     Chat
                 </Text>
+
+                <Box styleSheet={{display: 'flex', alignItems: 'center'}}>
+                    <Image
+                        src={`https://github.com/${loggedUser}.png`}
+                        styleSheet={{
+                        width: '30px',
+                        height: '30px',
+                        borderRadius: '50%',
+                        display: 'inline-block',
+                        marginRight: '8px',
+                        transition: 'ease .2s',
+                        hover: {
+                            width: '36px',
+                            height: '36px'
+                        }
+                        }}
+                    />
+                </Box>
+
+
+
+
                 <Button
                     variant='tertiary'
                     colorVariant='neutral'
@@ -259,7 +283,7 @@ function MessageList(props, loggedUser) {
                 display: 'flex',
                 flexDirection: 'column-reverse',
                 flex: 1,
-                color: appConfig.theme.colors.neutrals["000"],
+                // color: appConfig.theme.colors.neutrals["000"],
                 marginBottom: '16px',
             }}
         >
@@ -268,8 +292,10 @@ function MessageList(props, loggedUser) {
                     <Text
                         key={message.id}
                         tag="li"
-                        styleSheet={{     
-                            color: appConfig.theme.colors.neutrals["100"],
+                        styleSheet={{  
+                            display: 'flex', flexDirection: 'column',
+                            // alignItems: message.from == props.loggedUser ? 'flex-end' : 'flex-start',   
+                            color: message.from == props.loggedUser ? appConfig.theme.colors.neutrals["100"] : appConfig.theme.colors.neutrals["200"],
                             borderRadius: '5px',
                             padding: '6px',
                             marginBottom: '12px',
@@ -296,59 +322,46 @@ function MessageList(props, loggedUser) {
                             <Text tag="strong">
                                 {message.from}
                             </Text>
-                            <Text
-                                styleSheet={{
-                                    fontSize: '10px',
-                                    marginLeft: '8px',
-                                    color: appConfig.theme.colors.neutrals["300"],
-                                }}
-                                tag="span"
-                            >
-                                {(new Date().toLocaleDateString())}
-                                {/* {message.created_at} */}
-                                {/* {((new Date()).toISOString()).toLocaleString('zh-TW')} */}
-                                {/* {((new Date()).toISOString()).toLocaleString()} */}
-                                {/* {(new Date()).toLocaleString('TW')} */}
-                            </Text>
+                            
+                            
+                            
 
                             <Text
                                 styleSheet={{
                                     fontSize: '10px',
                                     marginLeft: '8px',
-                                    color: appConfig.theme.colors.neutrals[200],
+                                    // color: appConfig.theme.colors.neutrals[200],
+                                    color: message.from == props.loggedUser ? appConfig.theme.colors.neutrals["100"] : appConfig.theme.colors.neutrals["200"],
+
                                 }}
                                 tag="span"
                             >
                                 {/* {(new Date().toLocaleDateString())} */}
-                                {message.created_at}
+                                {/* {message.created_at} */}
+
+                                {new Date(message.created_at).toLocaleString('da-DK', {dateStyle: 'short',timeStyle: 'short'})}
                             </Text>
 
 
 
                             <Button
                                 styleSheet={{
-                                    fontSize: '10px',
+                                    // fontSize: '1px',
                                     marginLeft: '8px',
-                                    color: appConfig.theme.colors.neutrals[200],
+                                    // color: appConfig.theme.colors.neutrals[200],
+                                    color: message.from == props.loggedUser ? appConfig.theme.colors.neutrals["100"] : appConfig.theme.colors.neutrals["200"],
+
                                 }}
-                                variant='primary'
+                                // variant='primary'
+                                variant='tertiary'
                                 colorVariant='neutral'
                                 tag="span"
+                                // fontSize='7px'
+                                size='xs'
                                 label='github'
                                 href={`https://github.com/${message.from}`}
                             >
                             </Button>
-
-
-
-
-
-
-
-
-
-
-
 
 
                             {/* {loggedUser === message.from ?  */}
