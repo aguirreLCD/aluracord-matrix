@@ -104,11 +104,11 @@ export default function ChatPage() {
     return (
         <Box
             styleSheet={{
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                backgroundColor: appConfig.theme.colors.primary[500],
-                backgroundImage: `url(https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg)`,
-                backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
-                color: appConfig.theme.colors.neutrals['000']
+                display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
+                backgroundColor: appConfig.theme.colors.neutrals[700],
+                
+                // backgroundImage: 'url(./images/pet.png)',
+                // backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'normal',
             }}
         >
             <Box
@@ -118,11 +118,15 @@ export default function ChatPage() {
                     flex: 1,
                     boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
                     borderRadius: '5px',
-                    backgroundColor: appConfig.theme.colors.neutrals[700],
+                    backgroundColor: appConfig.theme.colors.neutrals[300],
+                    backgroundImage: 'url(./images/pet.png)',
+                    backgroundRepeat: 'no-repeat', backgroundSize: 'center', backgroundBlendMode: 'multiply',
+      
                     height: '100%',
                     maxWidth: '95%',
                     maxHeight: '95vh',
                     padding: '32px',
+                    
                 }}
             >
                 <Header loggedUser={loggedUser}/>
@@ -132,9 +136,15 @@ export default function ChatPage() {
                         display: 'flex',
                         flex: 1,
                         height: '80%',
-                        backgroundColor: appConfig.theme.colors.neutrals[600],
+                        // width: '50%',
+                        maxWidth: '600px',
+
+                        backgroundColor: appConfig.theme.colors.neutrals["gray9"],
+                        // backgroundBlendMode: 'difference',
+                        
+                       
                         flexDirection: 'column',
-                        borderRadius: '5px',
+                        borderRadius: '15px',
                         padding: '16px',
                     }}
                 >
@@ -147,6 +157,7 @@ export default function ChatPage() {
                         styleSheet={{
                             display: 'flex',
                             alignItems: 'center',
+                            
                         }}
                         onSubmit={(event) => {
                             event.preventDefault();
@@ -169,12 +180,13 @@ export default function ChatPage() {
                             placeholder="Insert your message here..."
                             type="textarea"
                             styleSheet={{
-                                width: '100%',
+                                width: '80%',
+                                
                                 border: '0',
                                 resize: 'none',
                                 borderRadius: '5px',
                                 padding: '6px 8px',
-                                backgroundColor: appConfig.theme.colors.neutrals[800],
+                                backgroundColor: appConfig.theme.colors.neutrals[600],
                                 marginRight: '12px',
                                 // color: message.from == props.loggedUser ? appConfig.theme.colors.neutrals["100"] : appConfig.theme.colors.neutrals["300"],
                                 color: appConfig.theme.colors.neutrals[200],
@@ -211,7 +223,20 @@ export default function ChatPage() {
 function Header({loggedUser}) {
     return (
         <>
-            <Box styleSheet={{ width: '100%', marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} >
+            <Box styleSheet={{ 
+                // width: '50%',
+                maxWidth: '600px',
+
+                marginBottom: '16px',
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'space-between',
+                color: appConfig.theme.colors.neutrals["gray2"],
+
+                }} >
+                
+
+                
                 <Text variant='heading5'>
                     Chat
                 </Text>
@@ -236,10 +261,12 @@ function Header({loggedUser}) {
 
                 <Button
                     variant='tertiary'
-                    colorVariant='neutral'
+                    colorVariant='light'
                     label='Logout'
                     href="/"
                 />
+
+
             </Box>
         </>
     )

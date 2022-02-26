@@ -18,7 +18,7 @@ function Title(props) {
             <Tag>{props.children}</Tag>
             <style jsx>{`
                 ${Tag} {
-                    color: ${appConfig.theme.colors.neutrals['200']};                   
+                    color: ${appConfig.theme.colors.neutrals['800']};                   
                     font-size: 24px;
                     font-weight: 600;
                     margin-bottom: 13px;
@@ -56,9 +56,14 @@ export default function PaginaInicial() {
         <>
             <Box
                 styleSheet={{
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    backgroundColor: appConfig.theme.colors.primary[500],
-                    backgroundImage: 'url(https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg)',
+                    display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
+                    // backgroundColor: appConfig.theme.colors.neutrals[300],
+                    backgroundColor: appConfig.theme.colors.neutrals[100],
+                    
+                    // backgroundImage: username ? 'url(https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg)' : 'url(./images/pet.png)',
+                    backgroundImage: 'url(./images/dog.png)',
+
+                    // backgroundImage: 'url(https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg)',
                     backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
                 }}
             >
@@ -72,9 +77,12 @@ export default function PaginaInicial() {
                             sm: 'row',
                         },
                         width: '100%', maxWidth: '700px',
-                        borderRadius: '5px', padding: '32px', margin: '16px',
+                        height: '42%',
+                       
+                        borderRadius: '60px', padding: '42px', margin: '42px',
                         boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
-                        backgroundColor: appConfig.theme.colors.neutrals[700],
+                        backgroundColor: appConfig.theme.colors.neutrals[200],
+                        
                     }}
                 >
                     {/* Formulário */}
@@ -97,8 +105,15 @@ export default function PaginaInicial() {
 
                         }}
                         styleSheet={{
-                            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-                            width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
+                            display: 'flex',
+                            flexDirection: 'column', 
+                            alignItems: 'center', 
+                            justifyContent: 'center',
+                            width: { xs: '100%', sm: '50%' }, 
+                            textAlign: 'center', 
+                            // marginBottom: '32px', 
+                            margin: '13px'
+
                         }}
                     >
                         <Title tag="h2">Welcome `:)</Title>
@@ -106,8 +121,10 @@ export default function PaginaInicial() {
                         <Text
                             variant="body3"
                             styleSheet={{
-                                marginBottom: '32px',
-                                color: appConfig.theme.colors.neutrals[300]
+                                marginBottom: '42px',
+                                // margin: '13px',
+                                // maxWidth: '700px',
+                                color: appConfig.theme.colors.neutrals[700]
                             }}
                         >
                             {appConfig.name}
@@ -125,10 +142,10 @@ export default function PaginaInicial() {
                             fullWidth
                             textFieldColors={{
                                 neutral: {
-                                    textColor: appConfig.theme.colors.neutrals[200],
-                                    mainColor: appConfig.theme.colors.neutrals[900],
-                                    mainColorHighlight: appConfig.theme.colors.primary[500],
-                                    backgroundColor: appConfig.theme.colors.neutrals[800],
+                                    textColor: appConfig.theme.colors.neutrals[500],
+                                    mainColor: appConfig.theme.colors.neutrals[300],
+                                    mainColorHighlight: appConfig.theme.colors.neutrals[200],
+                                    backgroundColor: appConfig.theme.colors.neutrals[200],
                                 },
                             }}
                         />
@@ -139,9 +156,9 @@ export default function PaginaInicial() {
                             fullWidth
                             buttonColors={{
                                 contrastColor: appConfig.theme.colors.neutrals["000"],
-                                mainColor: appConfig.theme.colors.primary[500],
-                                mainColorLight: appConfig.theme.colors.primary[400],
-                                mainColorStrong: appConfig.theme.colors.primary[600],
+                                mainColor: appConfig.theme.colors.neutrals[600],
+                                mainColorLight: appConfig.theme.colors.neutrals[600],
+                                mainColorStrong: appConfig.theme.colors.neutrals[600],
                             }}
                             disabled={username.length < 3}
                         />
@@ -154,14 +171,14 @@ export default function PaginaInicial() {
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
-                            maxWidth: '200px',
+                            maxWidth: '180px',
                             padding: '16px',
-                            backgroundColor: appConfig.theme.colors.neutrals[800],
+                            backgroundColor: appConfig.theme.colors.neutrals[500],
                             border: '1px solid',
-                            borderColor: appConfig.theme.colors.neutrals[999],
+                            borderColor: appConfig.theme.colors.neutrals[400],
                             borderRadius: '10px',
                             flex: 1,
-                            minHeight: '240px',
+                            minHeight: '220px',
                         }}
                     >
 
@@ -178,20 +195,25 @@ export default function PaginaInicial() {
                             variant="body4"
                             styleSheet={{
                                 color: appConfig.theme.colors.neutrals[200],
-                                backgroundColor: appConfig.theme.colors.neutrals[900],
-                                padding: '3px 10px',
-                                borderRadius: '1000px'
+                                backgroundColor: appConfig.theme.colors.neutrals[500],
+                                padding: '3px 11px',
+                                borderRadius: '60px',
+                                margin: '3px',
+                                width: '100%',
+                                textAlign: 'center'
+
                             }}
                         >
-                            {username.length > 2 ? username : 'Type name'}
+                            {username.length > 2 ? username : 'Type github name'}
                         </Text>
                         
                         <Text
                             variant="body3"
                             styleSheet={{
-                                marginBottom: '32px',
-                                padding: '11px 7px',
-                                color: appConfig.theme.colors.neutrals[300]
+                                marginBottom: '7px',
+                                padding: '7px 3px',
+                                color: appConfig.theme.colors.neutrals[200],
+                                textAlign: 'center'
                             }}
                         >
                             {dataGit.bio}
