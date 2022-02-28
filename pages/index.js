@@ -220,14 +220,7 @@ export default function PaginaInicial() {
                             <p>{dataGit.name}</p>
                             <p>{dataGit.company}</p>
                             
-                            <p> <a styleSheet={{
-                                    color: 'white',
-                                    textDecoration: 'none',
-                                    cursor: 'auto', 
-                                                                    
-                                }}
-                            
-                                href={dataGit.blog} target="_blank" textDecoration="none"> {dataGit.blog}</a>   </p> 
+                            <p> <a href={`https://${dataGit.blog}`} target="_blank"> {dataGit.blog}</a>   </p> 
 
                             <p>{dataGit.location}</p>
 
