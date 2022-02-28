@@ -42,13 +42,13 @@ export default function PaginaInicial() {
             return responseServer.json();
         })
         .then((responseConverted) => {
-            // console.log('response converted', responseConverted);
+            console.log('response converted', responseConverted);
             setDataGit(responseConverted);
         })
     }, [username])
 
     // console.log('props git', props)
-    // console.log('dataGit', dataGit);
+    console.log('dataGit', dataGit);
     // console.log('data git', dataGit.login);
     // console.log(dataGit.location)
     
@@ -97,6 +97,7 @@ export default function PaginaInicial() {
                             } else {
                                 // rout.push('/chat');
                                 rout.push(`/chat?username=${username}`);
+                                // rout.push(`/chat?dataGit=${dataGit}`);
                             }
                             // {
                             //     username.length > 2 ? rout.push('/chat') : rout.push("/404");
@@ -208,15 +209,32 @@ export default function PaginaInicial() {
                         </Text>
                         
                         <Text
-                            variant="body3"
+                            variant="body4"
                             styleSheet={{
                                 marginBottom: '7px',
                                 padding: '7px 3px',
                                 color: appConfig.theme.colors.neutrals[200],
-                                textAlign: 'center'
+                                textAlign: 'center',
                             }}
                         >
-                            {dataGit.bio}
+                            <p>{dataGit.name}</p>
+                            <p>{dataGit.company}</p>
+                            
+                            <p> <a styleSheet={{
+                                    color: 'white',
+                                    textDecoration: 'none',
+                                    cursor: 'auto', 
+                                                                    
+                                }}
+                            
+                                href={dataGit.blog} target="_blank" textDecoration="none"> {dataGit.blog}</a>   </p> 
+
+                            <p>{dataGit.location}</p>
+
+                            {/* <p>followers: {dataGit.followers} </p>
+                            
+                            <p>following: {dataGit.following} </p> */}
+                            {/* {dataGit.bio} */}
                         </Text>
 
                     </Box>
@@ -226,3 +244,4 @@ export default function PaginaInicial() {
         </>
     );
 }
+

@@ -2,8 +2,6 @@ import appConfig from '../config.json';
 import Head from 'next/head';
 
 
-
-
 function GlobalStyle() {
     return (
         <style global jsx>{`
@@ -13,6 +11,14 @@ function GlobalStyle() {
                 box-sizing: border-box;
                 list-style: none;
                 transition: background-image .4s;
+            }
+            /* visited link */
+            a:visited {
+            color: white;
+            }
+            /* unvisited link */
+            a:link {
+            color: white;
             }
             body {
                 font-family: 'Open Sans', sans-serif;
@@ -28,29 +34,6 @@ function GlobalStyle() {
             #__next > * {
                 flex: 1;
             }
-
-            ::selection {
-                color: ${appConfig.theme.colors.neutrals['800']};
-                background: ${appConfig.theme.colors.primary['500']};
-            }
-            input, textarea{
-                caret-color: ${appConfig.theme.colors.primary['500']};
-            }
-           
-            ul.sknui-ul::-webkit-scrollbar-track{
-                background: ${appConfig.theme.colors.neutrals['800']}; 
-                border-radius: 4px;
-            }
-            ul.sknui-ul::-webkit-scrollbar-thumb{
-                background: ${appConfig.theme.colors.primary['500']};
-                border-radius: 4px; 
-            }
-            @keyframes spinner { 
-            100% { 
-                    transform:rotate(360deg) scale(1.2);
-                    -webkit-transform: rotate(360deg) scale(1.2); 
-                } 
-            }
             
         `}</style>
     );
@@ -58,9 +41,9 @@ function GlobalStyle() {
 
 
 
-
 export default function MyApp({ Component, pageProps }) {
-    // console.log("all pages");
+    // console.log(pageProps);
+    console.log("all pages");
     return(
         <>
             <Head>

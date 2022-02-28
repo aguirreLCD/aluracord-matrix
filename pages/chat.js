@@ -9,6 +9,9 @@ const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+
+// console.log('dataGit', dataGit);
+
 export default function ChatPage() {
     
     function listenMessage(response) {
@@ -29,9 +32,14 @@ export default function ChatPage() {
             .subscribe();
     }
 
+    
     const router = useRouter();
     const loggedUser = router.query.username;
-    // console.log('logged user ', loggedUser);
+    console.log('logged user ', loggedUser);
+
+    // const gitUser = router.query.dataGit;
+    // console.log('git user ', gitUser);
+
 
     // const { username } = router.query;
 
@@ -120,7 +128,8 @@ export default function ChatPage() {
                     borderRadius: '5px',
                     backgroundColor: appConfig.theme.colors.neutrals[300],
                     backgroundImage: 'url(./images/pet.png)',
-                    backgroundRepeat: 'no-repeat', backgroundSize: 'center', backgroundBlendMode: 'multiply',
+                    backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
+                    // backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
       
                     height: '100%',
                     maxWidth: '95%',
@@ -145,7 +154,7 @@ export default function ChatPage() {
                        
                         flexDirection: 'column',
                         borderRadius: '15px',
-                        padding: '16px',
+                        padding: '13px',
                     }}
                 >
                     {/* <MessageList messages={messageList} handleDeleteMessage={handleDeleteMessage}  /> */}
@@ -272,9 +281,10 @@ function Header({loggedUser}) {
     )
 }
 
-function MessageList(props, loggedUser) {
-    // console.log('props', props);
-    // console.log('logged user', props.loggedUser);
+
+
+function MessageList(props) {
+
 
     async function handleDeleteMessage(old) {
         await supabaseClient
@@ -306,7 +316,7 @@ function MessageList(props, loggedUser) {
                         key={message.id}
                         tag="li"
                         styleSheet={{  
-                            // display: 'flex', flexDirection: 'column',
+                            display: 'flex', flexDirection: 'column',
                             backgroundColor: message.from == props.loggedUser ? appConfig.theme.colors.neutrals["500"] : appConfig.theme.colors.neutrals["600"],
                             // alignItems: message.from == props.loggedUser ? 'flex-end' : 'flex-start',   
                             color: message.from == props.loggedUser ? appConfig.theme.colors.neutrals["gray2"] : appConfig.theme.colors.neutrals["gray1"],
@@ -333,6 +343,7 @@ function MessageList(props, loggedUser) {
                                     
                                 }}
                                 src={`https://github.com/${message.from}.png`}
+                                
                             />
                             <Text tag="strong">
                                 {message.from}
@@ -376,6 +387,8 @@ function MessageList(props, loggedUser) {
                                 href={`https://github.com/${message.from}`}
                             />
 
+
+
                             {/* {loggedUser === message.from ?  */}
                             <Button
                                 styleSheet={{
@@ -405,6 +418,7 @@ function MessageList(props, loggedUser) {
                             {/* : null } */}
                         </Box>
 
+
                         {/* {message.text} */}
                         {message.text.startsWith(':sticker:')
                             ? (
@@ -424,3 +438,5 @@ function MessageList(props, loggedUser) {
         </Box>
     )
 }
+
+
