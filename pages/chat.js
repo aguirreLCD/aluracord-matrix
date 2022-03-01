@@ -10,8 +10,6 @@ const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 
-// console.log('dataGit', dataGit);
-
 export default function ChatPage() {
     
     function listenMessage(response) {
@@ -35,7 +33,7 @@ export default function ChatPage() {
     
     const router = useRouter();
     const loggedUser = router.query.username;
-    console.log('logged user ', loggedUser);
+    // console.log('logged user ', loggedUser);
 
     // const gitUser = router.query.dataGit;
     // console.log('git user ', gitUser);
@@ -65,16 +63,16 @@ export default function ChatPage() {
                 // console.log('New msg: ', response);
                 // console.log('messageList: ', messageList);
 
-                setMessageList((valorAtualDaLista) => {
-                    // console.log('valor atual da lista: ', valorAtualDaLista);
+                setMessageList((currentListValue) => {
+                    // console.log('current list value: ', currentListValue);
                     return [
                         response.new,
-                        ...valorAtualDaLista,
+                        ...currentListValue,
                     ]
                 });
             } else {
-                setMessageList((valorAtualDaLista) => 
-                    valorAtualDaLista.filter((valor) => valor.id !== response)
+                setMessageList((currentListValue) => 
+                    currentListValue.filter((value) => value.id !== response)
                 );
             }
         });
@@ -150,7 +148,6 @@ export default function ChatPage() {
 
                         backgroundColor: appConfig.theme.colors.neutrals["gray9"],
                         // backgroundBlendMode: 'difference',
-                        
                        
                         flexDirection: 'column',
                         borderRadius: '15px',
@@ -177,8 +174,8 @@ export default function ChatPage() {
                         <TextField
                             value={message}
                             onChange={(event) => {
-                                const valor = event.target.value;
-                                setMessage(valor);
+                                const value = event.target.value;
+                                setMessage(value);
                             }}
                             onKeyPress={(event) => {
                                 if (event.key === 'Enter') {
@@ -190,7 +187,6 @@ export default function ChatPage() {
                             type="textarea"
                             styleSheet={{
                                 width: '80%',
-                                
                                 border: '0',
                                 resize: 'none',
                                 borderRadius: '5px',
@@ -235,22 +231,20 @@ function Header({loggedUser}) {
             <Box styleSheet={{ 
                 // width: '50%',
                 maxWidth: '600px',
-
                 marginBottom: '16px',
                 display: 'flex', 
                 alignItems: 'center', 
                 justifyContent: 'space-between',
                 color: appConfig.theme.colors.neutrals["gray2"],
-
                 }} >
-                
-
                 
                 <Text variant='heading5'>
                     Chat
                 </Text>
 
                 <Box styleSheet={{display: 'flex', alignItems: 'center'}}>
+                   <a href={`https://github.com/${loggedUser}`} target="_blank">  
+
                     <Image
                         src={`https://github.com/${loggedUser}.png`}
                         styleSheet={{
@@ -266,6 +260,7 @@ function Header({loggedUser}) {
                             }
                         }}
                     />
+                     </a> 
                 </Box>
 
                 <Button
@@ -275,7 +270,6 @@ function Header({loggedUser}) {
                     href="/"
                 />
 
-
             </Box>
         </>
     )
@@ -284,7 +278,6 @@ function Header({loggedUser}) {
 
 
 function MessageList(props) {
-
 
     async function handleDeleteMessage(old) {
         await supabaseClient
@@ -387,8 +380,6 @@ function MessageList(props) {
                                 href={`https://github.com/${message.from}`}
                             />
 
-
-
                             {/* {loggedUser === message.from ?  */}
                             <Button
                                 styleSheet={{
@@ -410,14 +401,12 @@ function MessageList(props) {
                                     // console.log('message btn', message);
                                     // console.log('message btn f', message.from);
                                     handleDeleteMessage(message.id);
-
                                     // }
                                 }}
                                 disabled={message.from != props.loggedUser}
                             />
                             {/* : null } */}
                         </Box>
-
 
                         {/* {message.text} */}
                         {message.text.startsWith(':sticker:')
@@ -438,5 +427,3 @@ function MessageList(props) {
         </Box>
     )
 }
-
-

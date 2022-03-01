@@ -48,7 +48,7 @@ export default function PaginaInicial() {
     }, [username])
 
     // console.log('props git', props)
-    console.log('dataGit', dataGit);
+    // console.log('dataGit', dataGit);
     // console.log('data git', dataGit.login);
     // console.log(dataGit.location)
     
@@ -58,7 +58,7 @@ export default function PaginaInicial() {
                 styleSheet={{
                     display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
                     // backgroundColor: appConfig.theme.colors.neutrals[300],
-                    backgroundColor: appConfig.theme.colors.neutrals[100],
+                    backgroundColor: appConfig.theme.colors.neutrals[200],
                     
                     // backgroundImage: username ? 'url(https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg)' : 'url(./images/pet.png)',
                     backgroundImage: 'url(./images/dog.png)',
@@ -82,6 +82,7 @@ export default function PaginaInicial() {
                         borderRadius: '60px', padding: '42px', margin: '42px',
                         boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
                         backgroundColor: appConfig.theme.colors.neutrals[200],
+                        backgroundBlendMode: 'normal'
                         
                     }}
                 >
@@ -125,7 +126,8 @@ export default function PaginaInicial() {
                                 marginBottom: '42px',
                                 // margin: '13px',
                                 // maxWidth: '700px',
-                                color: appConfig.theme.colors.neutrals[700]
+                                color: appConfig.theme.colors.neutrals[700],
+                                backgroundBlendMode: 'multiply'
                             }}
                         >
                             {appConfig.name}
@@ -133,6 +135,7 @@ export default function PaginaInicial() {
                         </Text>
 
                         <TextField
+                            placeholder='Type github name'
                             value={username}
                             onChange={function (event) {
                                 // console.log("user type", event.target.value);
@@ -145,7 +148,7 @@ export default function PaginaInicial() {
                                 neutral: {
                                     textColor: appConfig.theme.colors.neutrals[500],
                                     mainColor: appConfig.theme.colors.neutrals[300],
-                                    mainColorHighlight: appConfig.theme.colors.neutrals[200],
+                                    mainColorHighlight: appConfig.theme.colors.neutrals[300],
                                     backgroundColor: appConfig.theme.colors.neutrals[200],
                                 },
                             }}
@@ -155,11 +158,12 @@ export default function PaginaInicial() {
                             type='submit'
                             label='Enter'
                             fullWidth
+                            
                             buttonColors={{
                                 contrastColor: appConfig.theme.colors.neutrals["000"],
-                                mainColor: appConfig.theme.colors.neutrals[600],
-                                mainColorLight: appConfig.theme.colors.neutrals[600],
-                                mainColorStrong: appConfig.theme.colors.neutrals[600],
+                                mainColor: appConfig.theme.colors.neutrals[500],
+                                mainColorLight: appConfig.theme.colors.neutrals[500],
+                                mainColorStrong: appConfig.theme.colors.neutrals[500],
                             }}
                             disabled={username.length < 3}
                         />
@@ -175,8 +179,17 @@ export default function PaginaInicial() {
                             maxWidth: '180px',
                             padding: '16px',
                             backgroundColor: appConfig.theme.colors.neutrals[500],
+                            // contrastColor: appConfig.theme.colors.neutrals["000"],
+                            // mainColor: appConfig.theme.colors.neutrals[500],
+                            // mainColorLight: appConfig.theme.colors.neutrals[500],
+                            // mainColorStrong: appConfig.theme.colors.neutrals[500],
+                            // backgroundColor: appConfig.theme.colors.neutrals["greenish"],
+                            // backgroundColor: appConfig.theme.colors.neutrals["pet"],
+                            // backgroundBlendMode: 'multiply',
+
+                            
                             border: '1px solid',
-                            borderColor: appConfig.theme.colors.neutrals[400],
+                            borderColor: appConfig.theme.colors.neutrals[200],
                             borderRadius: '10px',
                             flex: 1,
                             minHeight: '220px',
@@ -196,7 +209,7 @@ export default function PaginaInicial() {
                             variant="body4"
                             styleSheet={{
                                 color: appConfig.theme.colors.neutrals[200],
-                                backgroundColor: appConfig.theme.colors.neutrals[500],
+                                // backgroundColor: appConfig.theme.colors.neutrals[600],
                                 padding: '3px 11px',
                                 borderRadius: '60px',
                                 margin: '3px',
@@ -205,7 +218,7 @@ export default function PaginaInicial() {
 
                             }}
                         >
-                            {username.length > 2 ? username : 'Type github name'}
+                            {username.length > 2 ? username : ''}
                         </Text>
                         
                         <Text
@@ -213,7 +226,7 @@ export default function PaginaInicial() {
                             styleSheet={{
                                 marginBottom: '7px',
                                 padding: '7px 3px',
-                                color: appConfig.theme.colors.neutrals[200],
+                                color: appConfig.theme.colors.neutrals[300],
                                 textAlign: 'center',
                             }}
                         >
