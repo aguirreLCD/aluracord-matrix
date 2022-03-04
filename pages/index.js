@@ -1,11 +1,12 @@
 import { Box, Button, Text, TextField, Image } from '@skynexui/components';
 
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 
 import { useRouter } from 'next/router';
 
 import appConfig from '../config.json';
 
+import { DataContext } from './DataContext';
 
 function Title(props) {
     // console.log(props);
@@ -28,42 +29,22 @@ function Title(props) {
     );
 }
 
-export default function PaginaInicial() {
-
-    const [username, setUsername] = React.useState('');
-
+export default function HomePage() {  
+    
+    const dataGit = useContext(DataContext);
+    
     const rout = useRouter();
 
-    const [dataGit, setDataGit] = React.useState({})
+    const [username, setUsername] = useState('');
 
-    React.useEffect(() => {
-        fetch((`https://api.github.com/users/${username}`) )
-        .then((responseServer) => {
-            return responseServer.json();
-        })
-        .then((responseConverted) => {
-            console.log('response converted', responseConverted);
-            setDataGit(responseConverted);
-        })
-    }, [username])
-
-    // console.log('props git', props)
-    // console.log('dataGit', dataGit);
-    // console.log('data git', dataGit.login);
-    // console.log(dataGit.location)
-    
     return (
         <>
+
             <Box
                 styleSheet={{
                     display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
-                    // backgroundColor: appConfig.theme.colors.neutrals[300],
                     backgroundColor: appConfig.theme.colors.neutrals[200],
-                    
-                    // backgroundImage: username ? 'url(https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg)' : 'url(./images/pet.png)',
                     backgroundImage: 'url(./images/dog.png)',
-
-                    // backgroundImage: 'url(https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg)',
                     backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
                 }}
             >
@@ -78,7 +59,6 @@ export default function PaginaInicial() {
                         },
                         width: '100%', maxWidth: '700px',
                         height: '42%',
-                       
                         borderRadius: '60px', padding: '42px', margin: '42px',
                         boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
                         backgroundColor: appConfig.theme.colors.neutrals[200],
@@ -93,18 +73,12 @@ export default function PaginaInicial() {
                             event.preventDefault();
                             // console.log("submited");
                             // window.location.href = '/chat';
-                            if (dataGit.name === undefined) {
+                            if (username === undefined) {
                                 rout.push("/404");
                             } else {
                                 // rout.push('/chat');
                                 rout.push(`/chat?username=${username}`);
-                                // rout.push(`/chat?dataGit=${dataGit}`);
                             }
-                            // {
-                            //     username.length > 2 ? rout.push('/chat') : rout.push("/404");
-                            //     // `https://github.com/${username}.png` ? rout.push('/404') : rout.push("/chat");
-                            // }
-
                         }}
                         styleSheet={{
                             display: 'flex',
@@ -118,7 +92,9 @@ export default function PaginaInicial() {
 
                         }}
                     >
-                        <Title tag="h2">Welcome `:)</Title>
+                        <Title tag="h2">
+                            Welcome `:)
+                        </Title>
 
                         <Text
                             variant="body3"
@@ -139,9 +115,8 @@ export default function PaginaInicial() {
                             value={username}
                             onChange={function (event) {
                                 // console.log("user type", event.target.value);
-                                const valor = event.target.value;
-                                // console.log(valor)
-                                setUsername(valor);
+                                const valueUserType = event.target.value;
+                                setUsername(valueUserType);
                             }}
                             fullWidth
                             textFieldColors={{
@@ -158,7 +133,6 @@ export default function PaginaInicial() {
                             type='submit'
                             label='Enter'
                             fullWidth
-                            
                             buttonColors={{
                                 contrastColor: appConfig.theme.colors.neutrals["000"],
                                 mainColor: appConfig.theme.colors.neutrals[500],
@@ -179,15 +153,6 @@ export default function PaginaInicial() {
                             maxWidth: '180px',
                             padding: '16px',
                             backgroundColor: appConfig.theme.colors.neutrals[500],
-                            // contrastColor: appConfig.theme.colors.neutrals["000"],
-                            // mainColor: appConfig.theme.colors.neutrals[500],
-                            // mainColorLight: appConfig.theme.colors.neutrals[500],
-                            // mainColorStrong: appConfig.theme.colors.neutrals[500],
-                            // backgroundColor: appConfig.theme.colors.neutrals["greenish"],
-                            // backgroundColor: appConfig.theme.colors.neutrals["pet"],
-                            // backgroundBlendMode: 'multiply',
-
-                            
                             border: '1px solid',
                             borderColor: appConfig.theme.colors.neutrals[200],
                             borderRadius: '10px',
@@ -209,7 +174,6 @@ export default function PaginaInicial() {
                             variant="body4"
                             styleSheet={{
                                 color: appConfig.theme.colors.neutrals[200],
-                                // backgroundColor: appConfig.theme.colors.neutrals[600],
                                 padding: '3px 11px',
                                 borderRadius: '60px',
                                 margin: '3px',
@@ -220,6 +184,7 @@ export default function PaginaInicial() {
                         >
                             {username.length > 2 ? username : ''}
                         </Text>
+
                         
                         <Text
                             variant="body4"
@@ -230,17 +195,10 @@ export default function PaginaInicial() {
                                 textAlign: 'center',
                             }}
                         >
-                            <p>{dataGit.name}</p>
-                            <p>{dataGit.company}</p>
+                            {/* <p> {dataGit?.blog} </p>
+                            <p> {dataGit?.company} </p>
+                            <p> {dataGit?.location} </p> */}
                             
-                            <p> <a href={`https://${dataGit.blog}`} target="_blank"> {dataGit.blog}</a>   </p> 
-
-                            <p>{dataGit.location}</p>
-
-                            {/* <p>followers: {dataGit.followers} </p>
-                            
-                            <p>following: {dataGit.following} </p> */}
-                            {/* {dataGit.bio} */}
                         </Text>
 
                     </Box>
@@ -251,3 +209,29 @@ export default function PaginaInicial() {
     );
 }
 
+
+// This gets called on every request
+// export const getStaticProps = async () => {
+
+//     // Fetch data from external API
+//     const response = await fetch('https://api.github.com/users/aguirreSL');
+//     const dataGit = await response.json();
+
+//     console.log(dataGit);
+//     console.log(dataGit.login);
+
+    
+    
+
+//     // const dataGitName = data.map((item) => item.name);
+//     // const dataGitBlog = data.map((item) => item.blog);
+//     // const dataGitLocation = data.map((item) => item.location);
+
+
+//     return {
+//         props: { 
+//             dataGit: dataGit
+//         }
+//     }
+   
+// }

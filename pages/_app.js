@@ -1,6 +1,7 @@
 import appConfig from '../config.json';
 import Head from 'next/head';
 
+import { DataProvider } from './DataContext';
 
 function GlobalStyle() {
     return (
@@ -42,10 +43,10 @@ function GlobalStyle() {
 
 
 export default function MyApp({ Component, pageProps }) {
-    // console.log(pageProps);
-    // console.log("all pages");
+
     return(
-        <>
+        
+        <DataProvider>
             <Head>
                 <meta charSet="utf-8" />
                 <link rel="icon" href="images/favicon-16x16.png" />
@@ -53,8 +54,15 @@ export default function MyApp({ Component, pageProps }) {
             </Head>
             
             <GlobalStyle />
+
             <Component {...pageProps} />
-        </>
+
+        </DataProvider>
+        
+
+        
+    
+        
     );
     
 }

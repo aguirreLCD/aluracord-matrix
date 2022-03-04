@@ -1,16 +1,31 @@
 import { Box, Text, TextField, Image, Button, Icon } from '@skynexui/components';
-import React from 'react';
+import React, { useContext } from 'react';
 import appConfig from '../config.json';
 import { createClient } from '@supabase/supabase-js';
 import { useRouter } from 'next/router';
 import { ButtonSendSticker } from '../src/components/ButtonSendSticker';
+
+import { DataContext } from './DataContext';
+
 
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 
+
 export default function ChatPage() {
+
+    // const dataGitValue = useContext(DataContext);
+    // const [dataGit, setDataGit] = useContext(DataContext);
+    // console.log(dataGit);
+
+
+    const dataGit = useContext(DataContext);
+    // console.log(dataGit.dataGit.login);
+    // console.log(dataGit.dataGit.location);
+    // console.log(dataGit.dataGit.blog);
+
     
     function listenMessage(response) {
         return supabaseClient
@@ -29,17 +44,14 @@ export default function ChatPage() {
             })
             .subscribe();
     }
-
     
     const router = useRouter();
     const loggedUser = router.query.username;
-    // console.log('logged user ', loggedUser);
 
-    // const gitUser = router.query.dataGit;
-    // console.log('git user ', gitUser);
+    // const router = useRouter();
+    // const loggedUser = dataGit.dataGit.login;
 
-
-    // const { username } = router.query;
+    // const site = dataGit.dataGit.blog;
 
     // keep the msg
     const [message, setMessage] = React.useState('');
@@ -108,11 +120,11 @@ export default function ChatPage() {
     }
 
     return (
+        
         <Box
             styleSheet={{
                 display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
                 backgroundColor: appConfig.theme.colors.neutrals[700],
-                
                 // backgroundImage: 'url(./images/pet.png)',
                 // backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'normal',
             }}
@@ -128,15 +140,23 @@ export default function ChatPage() {
                     backgroundImage: 'url(./images/pet.png)',
                     backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
                     // backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
-      
                     height: '100%',
                     maxWidth: '95%',
                     maxHeight: '95vh',
                     padding: '32px',
-                    
                 }}
             >
-                <Header loggedUser={loggedUser}/>
+                <Header loggedUser={loggedUser} />
+                {/* <Header loggedUser={loggedUser} site={site} /> */}
+                <Text>
+
+                          
+                            {/* <p> Name: {dataGit.dataGit?.name}</p>
+                            <p> url: {dataGit.dataGit?.blog}</p>
+                            <p> Location: {dataGit.dataGit?.location}</p>  */}
+
+                </Text>
+
                 <Box
                     styleSheet={{
                         position: 'relative',
@@ -145,17 +165,13 @@ export default function ChatPage() {
                         height: '80%',
                         // width: '50%',
                         maxWidth: '600px',
-
                         backgroundColor: appConfig.theme.colors.neutrals["gray9"],
                         // backgroundBlendMode: 'difference',
-                       
                         flexDirection: 'column',
                         borderRadius: '15px',
                         padding: '13px',
                     }}
                 >
-                    {/* <MessageList messages={messageList} handleDeleteMessage={handleDeleteMessage}  /> */}
-                    {/* <MessageList messages={messageList} onDelete={handleDeleteMessage}/> */}
                     <MessageList messages={messageList} loggedUser={loggedUser}  />
 
                     <Box
@@ -225,7 +241,12 @@ export default function ChatPage() {
     )
 }
 
-function Header({loggedUser}) {
+function Header({ loggedUser }) {
+    const dataGit = useContext(DataContext);
+
+    
+    // console.log('header', loggedUser);
+    // console.log('data', dataGit.dataGit.blog);
     return (
         <>
             <Box styleSheet={{ 
@@ -240,6 +261,7 @@ function Header({loggedUser}) {
                 
                 <Text variant='heading5'>
                     Chat
+                    
                 </Text>
 
                 <Box styleSheet={{display: 'flex', alignItems: 'center'}}>
@@ -333,7 +355,6 @@ function MessageList(props) {
                                     borderRadius: '50%',
                                     display: 'inline-block',
                                     marginRight: '8px',
-                                    
                                 }}
                                 src={`https://github.com/${message.from}.png`}
                                 
@@ -349,7 +370,6 @@ function MessageList(props) {
                                     padding: '1px',
                                     // color: appConfig.theme.colors.neutrals[200],
                                     color: message.from == props.loggedUser ? appConfig.theme.colors.neutrals["100"] : appConfig.theme.colors.neutrals["200"],
-
                                 }}
                                 tag="span"
                             >
@@ -357,22 +377,11 @@ function MessageList(props) {
                                 {new Date(message.created_at).toLocaleString('da-DK', {dateStyle: 'short',timeStyle: 'short'})}
                             </Text>
 
-
                             <Button
                                 styleSheet={{
-                                    
-                                    // borderRadius: '5px',
-                                    // marginLeft: '5px',
                                     padding: '1px'
-
-                                    // width: '20px',
-                                    // height: '20px',
-                                    // borderRadius: '5%',
-                                    // display: 'inline-block',
-                                    // marginRight: '8px',
                                 }}
                                 tag="span"
-
                                 iconName='github'
                                 variant='tertiary'
                                 size='xs'
@@ -384,8 +393,6 @@ function MessageList(props) {
                             <Button
                                 styleSheet={{
                                     padding: '1px'
-                                    // borderRadius: '5px',
-                                    // marginLeft: '5px'
                                 }}
                                 variant='tertiary'
                                 colorVariant='dark'
@@ -414,7 +421,6 @@ function MessageList(props) {
                                 <Image src={message.text.replace(':sticker:', '')}
                                  styleSheet={{
                                         width: '300px',
-                                        
                                  }}                                
                                 />
                             )
