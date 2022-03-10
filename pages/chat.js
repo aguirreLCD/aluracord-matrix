@@ -7,7 +7,6 @@ import { ButtonSendSticker } from '../src/components/ButtonSendSticker';
 
 import { DataContext } from './DataContext';
 
-
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -17,7 +16,7 @@ export default function ChatPage() {
 
 
     const dataGit = useContext(DataContext);
-    // console.log("chat", dataGit);
+    console.log("chat", dataGit);
     
     function listenMessage(response) {
         return supabaseClient
@@ -134,7 +133,6 @@ export default function ChatPage() {
                 }}
             >
                 <Header loggedUser={loggedUser} />
-                {/* <Header loggedUser={loggedUser} site={site} /> */}
                 <Text>
 
                           
@@ -230,6 +228,10 @@ export default function ChatPage() {
 
 function Header({ loggedUser }) {
     const dataGit = useContext(DataContext);
+    console.log("header", dataGit);
+    const rout = useRouter();
+
+    // const[isOpen, setIsOpen] = useState(false);
     
     // console.log('header', loggedUser);
     // console.log('header', dataGit);
@@ -245,13 +247,32 @@ function Header({ loggedUser }) {
                 color: appConfig.theme.colors.neutrals["gray2"],
                 }} >
                 
-                <Text variant='heading5'>
+                {/* <Text variant='heading5'>
                     Chat
                     
-                </Text>
+                </Text> */}
 
-                <Box styleSheet={{display: 'flex', alignItems: 'center'}}>
+                <Button
+
+                    buttonColors={{
+                                contrastColor: appConfig.theme.colors.neutrals["000"],
+                                mainColor: appConfig.theme.colors.neutrals[500],
+                                mainColorLight: appConfig.theme.colors.neutrals[500],
+                                mainColorStrong: appConfig.theme.colors.neutrals[500],
+                    }}
+                    // variant='tertiary'
+                    // colorVariant='light'
+                    label='Chat'
+                    // href="/"
+                />
+
+                <Box styleSheet={{display: 'flex', alignItems: 'space-between'}}>
                    <a href={`https://github.com/${loggedUser}`} target="_blank">  
+                   {/* <a href={`rout.push/${Profile}`}>   */}
+                   {/* <a href='rout.push/("/profile")'> */}
+
+
+
 
                     <Image
                         src={`https://github.com/${loggedUser}.png`}
@@ -271,9 +292,68 @@ function Header({ loggedUser }) {
                      </a> 
                 </Box>
 
+               
+
+
+                <Box
+                        as="form"
+                        onSubmit={function (event) {
+                            event.preventDefault();
+                            // console.log("submited");
+                            // window.location.href = '/chat';
+                            if (loggedUser === undefined) {
+                                rout.push("/404");
+                            } else {
+                                // rout.push('/chat');
+                                // rout.push("/profile");
+                                rout.push(`/profile?username=${loggedUser}`);
+
+                            }
+                        }}
+                        styleSheet={{
+                            display: 'flex',
+                            flexDirection: 'column', 
+                            alignItems: 'center', 
+                            justifyContent: 'center',
+                            width: { xs: '100%', sm: '50%' }, 
+                            textAlign: 'center', 
+                            // marginBottom: '32px', 
+                            margin: '13px'
+
+                        }}
+                    >
+
+
+
+                         <Button
+                            type='submit'
+                            label='Profile'
+                            // fullWidth
+                            buttonColors={{
+                                contrastColor: appConfig.theme.colors.neutrals["000"],
+                                mainColor: appConfig.theme.colors.neutrals[500],
+                                mainColorLight: appConfig.theme.colors.neutrals[500],
+                                mainColorStrong: appConfig.theme.colors.neutrals[500],
+                            }}
+                        />
+
+
+
+
+
+
+                    </Box>
+
                 <Button
-                    variant='tertiary'
-                    colorVariant='light'
+
+                    buttonColors={{
+                                contrastColor: appConfig.theme.colors.neutrals["000"],
+                                mainColor: appConfig.theme.colors.neutrals[500],
+                                mainColorLight: appConfig.theme.colors.neutrals[500],
+                                mainColorStrong: appConfig.theme.colors.neutrals[500],
+                    }}
+                    // variant='tertiary'
+                    // colorVariant='light'
                     label='Logout'
                     href="/"
                 />
@@ -419,3 +499,5 @@ function MessageList(props) {
         </Box>
     )
 }
+
+
