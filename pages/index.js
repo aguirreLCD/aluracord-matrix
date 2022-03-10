@@ -8,6 +8,7 @@ import appConfig from '../config.json';
 
 import { DataContext } from './DataContext';
 
+
 function Title(props) {
     // console.log(props);
     // console.log(props.children);
@@ -29,9 +30,11 @@ function Title(props) {
     );
 }
 
-export default function HomePage() {  
+export default function HomePage() {
+    
     
     const dataGit = useContext(DataContext);
+    // console.log("index", dataGit);
     
     const rout = useRouter();
 
@@ -195,9 +198,10 @@ export default function HomePage() {
                                 textAlign: 'center',
                             }}
                         >
-                            {/* <p> {dataGit?.blog} </p>
-                            <p> {dataGit?.company} </p>
-                            <p> {dataGit?.location} </p> */}
+                            {/* <p> {dataGit?.name} </p> */}
+                            {/* <p> {dataGit?.company} </p> */}
+                            {/* <p> {dataGit?.blog} </p> */}
+                            {/* <p> {dataGit?.location} </p>  */}
                             
                         </Text>
 

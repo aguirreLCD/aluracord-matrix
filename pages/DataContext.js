@@ -1,34 +1,40 @@
 
 import { useState, useEffect, createContext } from 'react';
-import { getStaticProps } from '.';
+
+import { useRouter } from 'next/router';
 
 
 export const DataContext = createContext();
 
-export const DataProvider = (props) => {
 
+export const DataProvider = (props) => {
     
-      
-    // const [username, setUsername] = useState('');
+    const router = useRouter();
+
+    const username = router.query.username;
+
+    console.log("username", username);
+
     const [isLoading, setLoading] = useState(true);
     
     const [dataGit, setDataGit] = useState([]);
 
     useEffect(() => {
-        fetch('https://api.github.com/users/aguirreLCD')
-        .then((res) => res.json())
+        fetch(`https://api.github.com/users/${username}`)
+        .then((dataGit) => dataGit.json())
         .then((dataGit) => {
-            // console.log(dataGit);
+            console.log(dataGit);
             setDataGit(dataGit);     
             // console.log(dataGit);
         })
         .finally(() => {
             setLoading(false)
         })
-    }, []);
+    }, [username]);
 
     return (
-        <DataContext.Provider value={{dataGit, isLoading}}>
+        <DataContext.Provider value={{dataGit}}>
+            
             {props.children}
 
         </DataContext.Provider>
@@ -40,26 +46,20 @@ export const DataProvider = (props) => {
 
                             
                             
-// export const getStaticProps = async () => {
+// export async function getStaticProps() {
 
 //     // Fetch data from external API
-//     const response = await fetch('https://api.github.com/users/aguirreSL');
+//     const response = await fetch('https://api.github.com/users/aguirreLCD');
 //     const dataGit = await response.json();
 
 //     console.log(dataGit);
 //     console.log(dataGit.login);
 
-    
-    
-
-//     // const dataGitName = data.map((item) => item.name);
-//     // const dataGitBlog = data.map((item) => item.blog);
-//     // const dataGitLocation = data.map((item) => item.location);
 
 
 //     return {
 //         props: { 
-//             dataGit: dataGit
+//             dataGit: [],
 //         }
 //     }
    

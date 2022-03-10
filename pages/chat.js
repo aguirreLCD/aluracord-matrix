@@ -13,19 +13,11 @@ const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 
-
 export default function ChatPage() {
-
-    // const dataGitValue = useContext(DataContext);
-    // const [dataGit, setDataGit] = useContext(DataContext);
-    // console.log(dataGit);
 
 
     const dataGit = useContext(DataContext);
-    // console.log(dataGit.dataGit.login);
-    // console.log(dataGit.dataGit.location);
-    // console.log(dataGit.dataGit.blog);
-
+    // console.log("chat", dataGit);
     
     function listenMessage(response) {
         return supabaseClient
@@ -48,11 +40,6 @@ export default function ChatPage() {
     const router = useRouter();
     const loggedUser = router.query.username;
 
-    // const router = useRouter();
-    // const loggedUser = dataGit.dataGit.login;
-
-    // const site = dataGit.dataGit.blog;
-
     // keep the msg
     const [message, setMessage] = React.useState('');
 
@@ -70,7 +57,7 @@ export default function ChatPage() {
             });
 
         const subscription = listenMessage((response) => {
-            // if INSERT else DELETE 
+            // if INSERT else DELETE  
             if (response.eventType === "INSERT") {
                 // console.log('New msg: ', response);
                 // console.log('messageList: ', messageList);
@@ -243,10 +230,9 @@ export default function ChatPage() {
 
 function Header({ loggedUser }) {
     const dataGit = useContext(DataContext);
-
     
     // console.log('header', loggedUser);
-    // console.log('data', dataGit.dataGit.blog);
+    // console.log('header', dataGit);
     return (
         <>
             <Box styleSheet={{ 
