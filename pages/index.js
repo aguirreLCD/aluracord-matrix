@@ -34,7 +34,7 @@ export default function HomePage() {
     
     
     const dataGit = useContext(DataContext);
-    console.log("index", dataGit);
+    // console.log("index", dataGit);
     
     const rout = useRouter();
 

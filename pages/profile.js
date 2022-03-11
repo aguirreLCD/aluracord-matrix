@@ -10,10 +10,10 @@ export default function Profile() {
   
   const rout = useRouter();
   const username = rout.query.username;
-  console.log("profile", username);
+//   console.log("profile", username);
 
   const dataGit = useContext(DataContext);
-  console.log("profile", dataGit);
+//   console.log("profile", dataGit);
 
   return (
         
