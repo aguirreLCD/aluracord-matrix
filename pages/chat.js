@@ -298,7 +298,7 @@ function Header({ loggedUser }) {
                 </Box>
 
                
-
+{/* 
 
                 <Box
                         as="form"
@@ -347,7 +347,7 @@ function Header({ loggedUser }) {
 
 
 
-                    </Box>
+                    </Box> */}
 
                 <Button
 
@@ -408,8 +408,8 @@ function MessageList(props) {
                             // alignItems: message.from == props.loggedUser ? 'flex-end' : 'flex-start',   
                             color: message.from == props.loggedUser ? appConfig.theme.colors.neutrals["gray2"] : appConfig.theme.colors.neutrals["gray1"],
                             borderRadius: '5px',
-                            padding: '6px',
-                            marginBottom: '12px',
+                            padding: '13px',
+                            marginBottom: '9px',
                             hover: {
                                 backgroundColor: appConfig.theme.colors.neutrals["700"],
                             }
@@ -417,16 +417,18 @@ function MessageList(props) {
                     >
                         <Box
                             styleSheet={{
-                                marginBottom: '8px',
+                                marginBottom: '21px',
+                                display: 'inline-block',
+
                             }}
                         >
                             <Image
                                 styleSheet={{
-                                    width: '20px',
-                                    height: '20px',
+                                    width: '25px',
+                                    height: '25px',
                                     borderRadius: '50%',
                                     display: 'inline-block',
-                                    marginRight: '8px',
+                                    marginRight: '5px',
                                 }}
                                 src={`https://github.com/${message.from}.png`}
                                 
@@ -437,9 +439,9 @@ function MessageList(props) {
                             
                             <Text
                                 styleSheet={{
-                                    fontSize: '10px',
+                                    fontSize: '11px',
                                     marginLeft: '5px',
-                                    padding: '1px',
+                                    // padding: '1px',
                                     // color: appConfig.theme.colors.neutrals[200],
                                     color: message.from == props.loggedUser ? appConfig.theme.colors.neutrals["100"] : appConfig.theme.colors.neutrals["200"],
                                 }}
@@ -451,7 +453,8 @@ function MessageList(props) {
 
                             <Button
                                 styleSheet={{
-                                    padding: '1px'
+                                    // padding: '1px',
+                                    marginLeft: '5px'
                                 }}
                                 tag="span"
                                 iconName='github'
@@ -464,7 +467,9 @@ function MessageList(props) {
                             {/* {loggedUser === message.from ?  */}
                             <Button
                                 styleSheet={{
-                                    padding: '1px'
+                                    // padding: '1px',
+                                    marginLeft: '5px'
+
                                 }}
                                 variant='tertiary'
                                 colorVariant='dark'

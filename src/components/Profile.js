@@ -27,7 +27,7 @@ export function Profile(props) {
           padding: '0 3px 0 0',
           minWidth: '50px',
           minHeight: '50px',
-          fontSize: '20px',
+          fontSize: '1rem',
           marginBottom: '8px',
           lineHeight: '0',
           display: 'flex',
@@ -67,9 +67,11 @@ export function Profile(props) {
             styleSheet={{
               color: appConfig.theme.colors.neutrals["000"],
               fontWeight: 'bold',
+              
             }}
+            
           >
-            Profile
+            Github Profile
           </Text>
           <Box
             tag="ul"
@@ -86,8 +88,8 @@ export function Profile(props) {
                <Image
                         src={dataGit.dataGit?.avatar_url}
                         styleSheet={{
-                            width: '80px',
-                            height: '80px',
+                            width: '75px',
+                            height: '75px',
                             borderRadius: '50%',
                             display: 'inline-block',
                             marginRight: '8px',
@@ -108,13 +110,8 @@ export function Profile(props) {
                     }}
                     tag="li"
                 >
-
-
-                      
                        
-
-
-                        <p> {dataGit.dataGit?.name}</p>
+                    {dataGit.dataGit?.name}
                         <p> {dataGit.dataGit?.login}</p>
                         <p> {dataGit.dataGit?.bio}</p> 
                         <p> {dataGit.dataGit?.blog}</p>
