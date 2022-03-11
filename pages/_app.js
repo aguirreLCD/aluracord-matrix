@@ -1,4 +1,3 @@
-import appConfig from '../config.json';
 import Head from 'next/head';
 
 import { DataProvider } from '../src/context/DataContext';

@@ -8,8 +8,8 @@ import { DataContext } from '../context/DataContext';
 export function Profile(props) {
   const [isOpen, setOpenState] = React.useState('');
 
-  const rout = useRouter();
-  const username = rout.query.username;
+  // const rout = useRouter();
+  // const username = rout.query.username;
 //   console.log("Profile", username);
 
   const dataGit = useContext(DataContext);
@@ -27,7 +27,7 @@ export function Profile(props) {
           padding: '0 3px 0 0',
           minWidth: '50px',
           minHeight: '50px',
-          fontSize: '1rem',
+          fontSize: '21px',
           marginBottom: '8px',
           lineHeight: '0',
           display: 'flex',
@@ -52,8 +52,8 @@ export function Profile(props) {
             position: 'absolute',
             backgroundColor: appConfig.theme.colors.neutrals[800],
             width: {
-              xs: '200px',
-              sm: '290px',
+              xs: '-600px',
+              sm: '-690px',
             },
             height: '300px',
             right: '30px',
@@ -71,7 +71,7 @@ export function Profile(props) {
             }}
             
           >
-            Github Profile
+            {/* Github Profile */}
           </Text>
           <Box
             tag="ul"
@@ -80,7 +80,7 @@ export function Profile(props) {
               flexWrap: 'wrap',
               justifyContent: 'center',
               flex: 1,
-              paddingTop: '16px',
+              paddingTop: '1px',
               overflow: 'scroll',
             }}
           >
@@ -88,39 +88,46 @@ export function Profile(props) {
                <Image
                         src={dataGit.dataGit?.avatar_url}
                         styleSheet={{
-                            width: '75px',
-                            height: '75px',
+                            width: '85px',
+                            height: '85px',
                             borderRadius: '50%',
-                            display: 'inline-block',
-                            marginRight: '8px',
-                            transition: 'ease .2s',
-                            hover: {
-                                width: '36px',
-                                height: '36px'
-                            }
+                            justifyContent: 'center',
+                            // display: 'inline-block',
+                            // marginRight: '8px',
+                            // transition: 'ease .2s',
+                            // hover: {
+                            //     width: '36px',
+                            //     height: '36px'
+                            // }
                         }}
                     />
                  <Text variant='heading3'
                     styleSheet={{
-                        color: appConfig.theme.colors.neutrals["000"],
+                        color: appConfig.theme.colors.neutrals["300"],
                         // fontWeight: 'bold',
-                        fontSize:'1rem',
+                        fontSize:'16px',
                         // border: '1px solid',
 
                     }}
                     tag="li"
+                    
                 >
                        
-                    {dataGit.dataGit?.name}
+                    <p> {dataGit.dataGit?.name}  </p> 
                         <p> {dataGit.dataGit?.login}</p>
                         <p> {dataGit.dataGit?.bio}</p> 
-                        <p> {dataGit.dataGit?.blog}</p>
-                        <p> {dataGit.dataGit?.location}</p> 
+                        <p> 
+                         <a href="" target="_blank">  
+                          
+                          
+                          {dataGit.dataGit?.blog}
+                          </a>
+                        </p>
+                        <p>  {dataGit.dataGit?.location}</p> 
                         <p> {dataGit.dataGit?.company}</p> 
-                        <p> {dataGit.dataGit?.followers}</p> 
-                        <p> {dataGit.dataGit?.following}</p> 
+                        <p> {dataGit.dataGit?.followers} followers</p> 
+                        <p> {dataGit.dataGit?.following} following</p> 
                         <p> {dataGit.dataGit?.email}</p> 
-                        {/* <p> {dataGit.dataGit?.created_at}</p>  */}
 
                                 
                     </Text>

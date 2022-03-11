@@ -198,10 +198,10 @@ export default function HomePage() {
                                 textAlign: 'center',
                             }}
                         >
-                            {/* <p> {dataGit?.name} </p> */}
-                            {/* <p> {dataGit?.company} </p> */}
-                            {/* <p> {dataGit?.blog} </p> */}
-                            {/* <p> {dataGit?.location} </p>  */}
+                            {/* <p> {dataGit.dataGit?.name} </p> */}
+                            {/* <p> {dataGit.dataGit?.company} </p> */}
+                            {/* <p> {dataGit.dataGit?.blog} </p> */}
+                            {/* <p> {dataGit.dataGit?.location} </p>  */}
                             
                         </Text>
 

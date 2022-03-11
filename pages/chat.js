@@ -143,6 +143,8 @@ export default function ChatPage() {
 
                 </Text>
 
+                
+
                 <Box
                     styleSheet={{
                         position: 'relative',
@@ -151,8 +153,8 @@ export default function ChatPage() {
                         height: '80%',
                         // width: '50%',
                         maxWidth: '600px',
-                        backgroundColor: appConfig.theme.colors.neutrals["gray9"],
-                        // backgroundBlendMode: 'difference',
+                        // backgroundColor: appConfig.theme.colors.neutrals["gray9"],
+                        backgroundBlendMode: 'difference',
                         flexDirection: 'column',
                         borderRadius: '15px',
                         padding: '13px',
@@ -221,9 +223,7 @@ export default function ChatPage() {
                             }}
                         />
 
-                        <Profile
-                            
-                        />
+                        
                     </Box>
                 </Box>
             </Box>
@@ -295,6 +295,9 @@ function Header({ loggedUser }) {
                         }}
                     />
                      </a> 
+
+
+                    
                 </Box>
 
                
@@ -394,7 +397,7 @@ function MessageList(props) {
                 flexDirection: 'column-reverse',
                 flex: 1,
                 // color: appConfig.theme.colors.neutrals["000"],
-                marginBottom: '16px',
+                marginBottom: '11px',
             }}
         >
             {props.messages.map((message) => {
@@ -417,8 +420,9 @@ function MessageList(props) {
                     >
                         <Box
                             styleSheet={{
-                                marginBottom: '21px',
-                                display: 'inline-block',
+                                marginBottom: '7px',
+                                // margin: '3px',
+                                // display: 'inline-block',
 
                             }}
                         >
@@ -429,18 +433,33 @@ function MessageList(props) {
                                     borderRadius: '50%',
                                     display: 'inline-block',
                                     marginRight: '5px',
+                                    padding: '2px',
                                 }}
                                 src={`https://github.com/${message.from}.png`}
+
+                                
                                 
                             />
-                            <Text tag="strong">
+                            
+                            <Text 
+                                styleSheet={{
+                                    fontSize: '13px',
+                                    padding: '2px',
+                                    // marginLeft: '5px'
+                                }}
+                                tag="span"
+                            >
+
                                 {message.from}
+
                             </Text>
+                                
                             
                             <Text
                                 styleSheet={{
                                     fontSize: '11px',
-                                    marginLeft: '5px',
+                                    padding: '2px',
+                                    // marginLeft: '5px',
                                     // padding: '1px',
                                     // color: appConfig.theme.colors.neutrals[200],
                                     color: message.from == props.loggedUser ? appConfig.theme.colors.neutrals["100"] : appConfig.theme.colors.neutrals["200"],
@@ -453,8 +472,9 @@ function MessageList(props) {
 
                             <Button
                                 styleSheet={{
-                                    // padding: '1px',
-                                    marginLeft: '5px'
+                                    padding: '2px',
+                                    // marginLeft: '5px'
+                                    // margin: '1px'
                                 }}
                                 tag="span"
                                 iconName='github'
@@ -467,8 +487,8 @@ function MessageList(props) {
                             {/* {loggedUser === message.from ?  */}
                             <Button
                                 styleSheet={{
-                                    // padding: '1px',
-                                    marginLeft: '5px'
+                                    padding: '2px',
+                                    // marginLeft: '5px'
 
                                 }}
                                 variant='tertiary'
