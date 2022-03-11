@@ -4,6 +4,7 @@ import appConfig from '../config.json';
 import { createClient } from '@supabase/supabase-js';
 import { useRouter } from 'next/router';
 import { ButtonSendSticker } from '../src/components/ButtonSendSticker';
+import { Profile } from '../src/components/Profile';
 
 import { DataContext } from './DataContext';
 
@@ -218,6 +219,10 @@ export default function ChatPage() {
                                 // console.log('save sticker in db', sticker);
                                 handleNewMessage(`:sticker:${sticker}`);
                             }}
+                        />
+
+                        <Profile
+                            
                         />
                     </Box>
                 </Box>
