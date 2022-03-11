@@ -5,6 +5,7 @@
 
 .env.local
 delete.js
+profile.js
 
 App.js
 useFetch.js
