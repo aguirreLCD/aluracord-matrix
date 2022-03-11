@@ -1,7 +1,7 @@
 import appConfig from '../config.json';
 import Head from 'next/head';
 
-import { DataProvider } from './DataContext';
+import { DataProvider } from '../src/context/DataContext';
 
 function GlobalStyle() {
     return (

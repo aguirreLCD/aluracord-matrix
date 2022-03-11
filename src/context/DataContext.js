@@ -13,7 +13,7 @@ export const DataProvider = (props) => {
 
     const username = router.query.username;
 
-    console.log("username", username);
+    // console.log("username", username);
 
     const [isLoading, setLoading] = useState(true);
     
@@ -23,7 +23,7 @@ export const DataProvider = (props) => {
         fetch(`https://api.github.com/users/${username}`)
         .then((dataGit) => dataGit.json())
         .then((dataGit) => {
-            console.log(dataGit);
+            // console.log(dataGit);
             setDataGit(dataGit);     
             // console.log(dataGit);
         })

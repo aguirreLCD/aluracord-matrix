@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Box, Button, Text, Image } from '@skynexui/components';
 import appConfig from '../../config.json';
 import { useRouter } from 'next/router';
-import { DataContext } from '../../pages/DataContext';
+import { DataContext } from '../context/DataContext';
 
 
 export function Profile(props) {

@@ -4,7 +4,7 @@ import React, { useContext } from 'react';
 import appConfig from '../config.json';
 import { useRouter } from 'next/router';
 
-import { DataContext } from './DataContext';
+import { DataContext } from '../src/context/DataContext';
 
 export default function Profile() {
   

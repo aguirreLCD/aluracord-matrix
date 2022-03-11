@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 
 import appConfig from '../config.json';
 
-import { DataContext } from './DataContext';
+import { DataContext } from '../src/context/DataContext';
 
 
 function Title(props) {

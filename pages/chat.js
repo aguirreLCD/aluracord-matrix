@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { ButtonSendSticker } from '../src/components/ButtonSendSticker';
 import { Profile } from '../src/components/Profile';
 
-import { DataContext } from './DataContext';
+import { DataContext } from '../src/context/DataContext';
 
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -17,7 +17,7 @@ export default function ChatPage() {
 
 
     const dataGit = useContext(DataContext);
-    console.log("chat", dataGit);
+    // console.log("chat", dataGit);
     
     function listenMessage(response) {
         return supabaseClient
@@ -233,7 +233,7 @@ export default function ChatPage() {
 
 function Header({ loggedUser }) {
     const dataGit = useContext(DataContext);
-    console.log("header", dataGit);
+    // console.log("header", dataGit);
     const rout = useRouter();
 
     // const[isOpen, setIsOpen] = useState(false);
@@ -379,7 +379,8 @@ function MessageList(props) {
             .match({id: old})
             // .eq('id', old)
             .then(() => {
-                console.log('old del', old);
+                // console.log('old del', old);
+                console.log('del', old);
             });
         // return old;
     }
