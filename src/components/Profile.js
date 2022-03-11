@@ -50,10 +50,12 @@ export function Profile(props) {
             flexDirection: 'column',
             borderRadius: '5px',
             position: 'absolute',
+            // zIndex: '0',
+            
             backgroundColor: appConfig.theme.colors.neutrals[800],
             width: {
-              xs: '-600px',
-              sm: '-690px',
+              xs: '200px',
+              sm: '290px',
             },
             height: '300px',
             right: '30px',

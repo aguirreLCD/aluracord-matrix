@@ -110,7 +110,7 @@ export default function ChatPage() {
         
         <Box
             styleSheet={{
-                display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
+                display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between',
                 backgroundColor: appConfig.theme.colors.neutrals[700],
                 // backgroundImage: 'url(./images/pet.png)',
                 // backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'normal',
@@ -134,15 +134,7 @@ export default function ChatPage() {
                 }}
             >
                 <Header loggedUser={loggedUser} />
-                <Text>
-
-                          
-                            {/* <p> Name: {dataGit.dataGit?.name}</p>
-                            <p> url: {dataGit.dataGit?.blog}</p>
-                            <p> Location: {dataGit.dataGit?.location}</p>  */}
-
-                </Text>
-
+                
                 
 
                 <Box
@@ -151,13 +143,13 @@ export default function ChatPage() {
                         display: 'flex',
                         flex: 1,
                         height: '80%',
-                        // width: '50%',
-                        maxWidth: '600px',
+                        // width: '500px',
+                        maxWidth: '700px',
                         // backgroundColor: appConfig.theme.colors.neutrals["gray9"],
                         backgroundBlendMode: 'difference',
                         flexDirection: 'column',
                         borderRadius: '15px',
-                        padding: '13px',
+                        padding: '21px',
                     }}
                 >
                     <MessageList messages={messageList} loggedUser={loggedUser}  />
@@ -223,6 +215,8 @@ export default function ChatPage() {
                             }}
                         />
 
+                        <Profile></Profile>
+
                         
                     </Box>
                 </Box>
@@ -257,7 +251,7 @@ function Header({ loggedUser }) {
                     
                 </Text> */}
 
-                <Button
+                {/* <Button
 
                     buttonColors={{
                                 contrastColor: appConfig.theme.colors.neutrals["000"],
@@ -269,14 +263,18 @@ function Header({ loggedUser }) {
                     // colorVariant='light'
                     label='Chat'
                     // href="/"
-                />
+                /> */}
+
+                <Profile></Profile>
 
                 <Box styleSheet={{display: 'flex', alignItems: 'space-between'}}>
+                   {/* <a href={`https://github.com/${loggedUser}`} target="_blank">   */}
                    <a href={`https://github.com/${loggedUser}`} target="_blank">  
                    {/* <a href={`rout.push/${Profile}`}>   */}
                    {/* <a href='rout.push/("/profile")'> */}
 
 
+                    
 
 
                     <Image
@@ -406,12 +404,13 @@ function MessageList(props) {
                         key={message.id}
                         tag="li"
                         styleSheet={{  
-                            display: 'flex', flexDirection: 'column',
+                            display: 'flex', flexDirection: 'column', justifyContent:'space-between',
                             backgroundColor: message.from == props.loggedUser ? appConfig.theme.colors.neutrals["500"] : appConfig.theme.colors.neutrals["600"],
                             // alignItems: message.from == props.loggedUser ? 'flex-end' : 'flex-start',   
+                            alignItems: 'flex-start',
                             color: message.from == props.loggedUser ? appConfig.theme.colors.neutrals["gray2"] : appConfig.theme.colors.neutrals["gray1"],
                             borderRadius: '5px',
-                            padding: '13px',
+                            padding: '8px',
                             marginBottom: '9px',
                             hover: {
                                 backgroundColor: appConfig.theme.colors.neutrals["700"],
@@ -443,11 +442,11 @@ function MessageList(props) {
                             
                             <Text 
                                 styleSheet={{
-                                    fontSize: '13px',
-                                    padding: '2px',
-                                    // marginLeft: '5px'
+                                    fontSize: '1rem',
+                                    // padding: '2px',
+                                    marginLeft: '5px'
                                 }}
-                                tag="span"
+                                tag="strong"
                             >
 
                                 {message.from}
@@ -457,8 +456,11 @@ function MessageList(props) {
                             
                             <Text
                                 styleSheet={{
-                                    fontSize: '11px',
+                                    fontSize: '0.7rem',
                                     padding: '2px',
+                                    // justifyContent: 'space-between',
+                                    // display: 'inline-block',
+
                                     // marginLeft: '5px',
                                     // padding: '1px',
                                     // color: appConfig.theme.colors.neutrals[200],
@@ -472,7 +474,11 @@ function MessageList(props) {
 
                             <Button
                                 styleSheet={{
-                                    padding: '2px',
+                                    // padding: '2px',
+                                    
+                                    justifyContent:'space-between',
+
+
                                     // marginLeft: '5px'
                                     // margin: '1px'
                                 }}
@@ -484,10 +490,11 @@ function MessageList(props) {
                                 href={`https://github.com/${message.from}`}
                             />
 
-                            {/* {loggedUser === message.from ?  */}
                             <Button
                                 styleSheet={{
-                                    padding: '2px',
+                                    // padding: '2px',
+
+                                    
                                     // marginLeft: '5px'
 
                                 }}
@@ -509,10 +516,8 @@ function MessageList(props) {
                                 }}
                                 disabled={message.from != props.loggedUser}
                             />
-                            {/* : null } */}
                         </Box>
 
-                        {/* {message.text} */}
                         {message.text.startsWith(':sticker:')
                             ? (
                                 <Image src={message.text.replace(':sticker:', '')}
