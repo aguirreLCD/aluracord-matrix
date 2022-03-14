@@ -1,19 +1,13 @@
 import { Box, Button, Text, TextField, Image } from '@skynexui/components';
 
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { useRouter } from 'next/router';
 
 import appConfig from '../config.json';
 
-import { DataContext } from '../src/context/DataContext';
-
 
 export default function Index() {
-    
-    
-    const dataGit = useContext(DataContext);
-    // console.log("index", dataGit);
     
     const rout = useRouter();
 
@@ -21,7 +15,6 @@ export default function Index() {
 
     return (
         <>
-
             <Box
                 styleSheet={{
                     display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
@@ -52,9 +45,8 @@ export default function Index() {
                         as="form"
                         onSubmit={function (event) {
                             event.preventDefault();
-                            // console.log("submited");
-                            // window.location.href = '/chat';
-                            if (username === undefined) {
+                            console.log(username);
+                            if ({username} === undefined) {
                                 rout.push("/404");
                             } else {
                                 // rout.push('/chat');
@@ -192,7 +184,6 @@ export default function Index() {
                             }}
                         >
                            
-                            
                         </Text>
 
                     </Box>

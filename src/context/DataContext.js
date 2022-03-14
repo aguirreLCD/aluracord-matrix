@@ -15,11 +15,16 @@ export const DataProvider = (props) => {
 
     // console.log("username", username);
 
-    const [isLoading, setLoading] = useState(true);
+    const [isLoading, setLoading] = useState(false);
+    
+    const [error, setError] = useState(null);
     
     const [dataGit, setDataGit] = useState([]);
 
+
     useEffect(() => {
+        setLoading(true);
+
         fetch(`https://api.github.com/users/${username}`)
         .then((dataGit) => dataGit.json())
         .then((dataGit) => {
@@ -27,13 +32,16 @@ export const DataProvider = (props) => {
             setDataGit(dataGit);     
             // console.log(dataGit);
         })
+        .catch((err) => {
+            setError(err);
+        })
         .finally(() => {
             setLoading(false)
-        })
+        });
     }, [username]);
 
     return (
-        <DataContext.Provider value={{dataGit}}>
+        <DataContext.Provider value={{dataGit, isLoading, error}}>
             
             {props.children}
 

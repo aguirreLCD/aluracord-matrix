@@ -207,7 +207,6 @@ export default function ChatPage() {
                             }}
                         />
 
-                        <Profile></Profile>
 
                         
                     </Box>
@@ -218,14 +217,6 @@ export default function ChatPage() {
 }
 
 function Header({ loggedUser }) {
-    // const dataGit = useContext(DataContext);
-    // console.log("header", dataGit);
-    const rout = useRouter();
-
-    // const[isOpen, setIsOpen] = useState(false);
-    
-    // console.log('header', loggedUser);
-    // console.log('header', dataGit);
     return (
         <>
             <Box styleSheet={{ 
@@ -237,27 +228,6 @@ function Header({ loggedUser }) {
                 justifyContent: 'space-between',
                 color: appConfig.theme.colors.neutrals["gray2"],
                 }} >
-{/*                 
-                <Text variant='heading5'>
-                    Chat
-                    
-                </Text> */}
-
-                {/* <Button
-
-                    buttonColors={{
-                                contrastColor: appConfig.theme.colors.neutrals["000"],
-                                mainColor: appConfig.theme.colors.neutrals[500],
-                                mainColorLight: appConfig.theme.colors.neutrals[500],
-                                mainColorStrong: appConfig.theme.colors.neutrals[500],
-                    }}
-                    // variant='tertiary'
-                    // colorVariant='light'
-                    label='Chat'
-                    // href="/"
-                /> */}
-
-                {/* <Profile></Profile> */}
 
                 <Box styleSheet={{
                     display: 'flex', 
@@ -265,10 +235,6 @@ function Header({ loggedUser }) {
                     justifyContent: 'center'
                     }}>
                    <a href={`https://github.com/${loggedUser}`} target="_blank">  
-
-
-                    
-
 
                     <Image
                         src={`https://github.com/${loggedUser}.png`}
@@ -287,64 +253,9 @@ function Header({ loggedUser }) {
                     />
                      </a> 
 
-
-                    
                 </Box>
 
-               
-{/* 
-
-                <Box
-                        as="form"
-                        onSubmit={function (event) {
-                            event.preventDefault();
-                            // console.log("submited");
-                            // window.location.href = '/chat';
-                            if (loggedUser === undefined) {
-                                rout.push("/404");
-                            } else {
-                                // rout.push('/chat');
-                                // rout.push("/profile");
-                                rout.push(`/profile?username=${loggedUser}`);
-
-                            }
-                        }}
-                        styleSheet={{
-                            display: 'flex',
-                            flexDirection: 'column', 
-                            alignItems: 'center', 
-                            justifyContent: 'center',
-                            width: { xs: '100%', sm: '50%' }, 
-                            textAlign: 'center', 
-                            // marginBottom: '32px', 
-                            margin: '13px'
-
-                        }}
-                    >
-
-
-
-                         <Button
-                            type='submit'
-                            label='Profile'
-                            // fullWidth
-                            buttonColors={{
-                                contrastColor: appConfig.theme.colors.neutrals["000"],
-                                mainColor: appConfig.theme.colors.neutrals[500],
-                                mainColorLight: appConfig.theme.colors.neutrals[500],
-                                mainColorStrong: appConfig.theme.colors.neutrals[500],
-                            }}
-                        />
-
-
-
-
-
-
-                    </Box> */}
-
                 <Button
-
                     buttonColors={{
                                 contrastColor: appConfig.theme.colors.neutrals["000"],
                                 mainColor: appConfig.theme.colors.neutrals[500],
@@ -361,8 +272,6 @@ function Header({ loggedUser }) {
         </>
     )
 }
-
-
 
 function MessageList(props) {
 
@@ -399,7 +308,6 @@ function MessageList(props) {
                         styleSheet={{  
                             backgroundColor: message.from == props.loggedUser ? appConfig.theme.colors.neutrals["500"] : appConfig.theme.colors.neutrals["600"],
                             // alignItems: message.from == props.loggedUser ? 'flex-end' : 'flex-start',   
-                            
                             color: message.from == props.loggedUser ? appConfig.theme.colors.neutrals["gray2"] : appConfig.theme.colors.neutrals["gray1"],
                             borderRadius: '5px',
                             padding: '8px',
@@ -447,8 +355,22 @@ function MessageList(props) {
                                 size='xs'
                                 colorVariant='light'
                                 href={`https://github.com/${message.from}`}
+
                             />
 
+
+                           <Button
+                                tag="span"
+                                iconName='addressCard'
+                                variant='tertiary'
+                                size='xs'
+                                colorVariant='light'
+                                href={`https://github.com/${message.from}`}
+                            />
+
+
+
+                                        
                             <Button
                                 variant='tertiary'
                                 colorVariant='dark'
@@ -464,6 +386,11 @@ function MessageList(props) {
                                 disabled={message.from != props.loggedUser}
                             />
 
+
+
+                        <Profile gitUser={message.from}></Profile>
+
+
                         </Box>
                         {message.text.startsWith(':sticker:')
                             ? (
@@ -476,6 +403,10 @@ function MessageList(props) {
                             : (
                                 message.text
                         )}
+
+
+
+
                     </Text>
                 );
             })}
