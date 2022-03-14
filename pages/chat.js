@@ -359,14 +359,14 @@ function MessageList(props) {
                             />
 
 
-                           <Button
+                           {/* <Button
                                 tag="span"
                                 iconName='addressCard'
                                 variant='tertiary'
                                 size='xs'
                                 colorVariant='light'
                                 href={`https://github.com/${message.from}`}
-                            />
+                            /> */}
 
 
 
