@@ -119,7 +119,9 @@ export function Profile(props) {
                         <p> {dataGit.dataGit?.login}</p>
                         <p> {dataGit.dataGit?.bio}</p> 
                         <p> 
-                         <a href={dataGit.dataGit?.blog} target="_blank">  
+                         <a href={`https://${dataGit.dataGit?.blog}`}  target="_blank"> 
+
+                         
                           
                           
                           {dataGit.dataGit?.blog}
