@@ -59,6 +59,29 @@ export function Profile({gitUser}) {
         position: 'relative',
       }}
     >
+
+        <Image
+            src={`https://github.com/${gitUser}.png`}
+            styleSheet={{
+                width: '30px',
+                height: '30px',
+                borderRadius: '50%',
+                display: 'inline-block',
+                marginRight: '8px',
+                transition: 'ease .2s',
+                hover: {
+                    width: '36px',
+                    height: '36px'
+                }
+            }}
+            onClick={() => setOpenState(!isOpen)}
+        />
+
+ 
+
+
+
+{/* 
       <Button
         styleSheet={{
           borderRadius: '50%',
@@ -80,7 +103,7 @@ export function Profile({gitUser}) {
         // label=""
         iconName='addressCard'
         onClick={() => setOpenState(!isOpen)}
-      />
+      /> */}
       {isOpen && (
         <Box
           styleSheet={{
@@ -100,6 +123,7 @@ export function Profile({gitUser}) {
             height: '300px',
             // right: '30px',
             // bottom: '30px',
+            zIndex: '1',
 
             padding: '16px',
             boxShadow: 'rgba(4, 4, 5, 0.15) 0px 0px 0px 1px, rgba(0, 0, 0, 0.24) 0px 8px 16px 0px',

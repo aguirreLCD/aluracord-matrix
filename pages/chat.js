@@ -317,21 +317,29 @@ function MessageList(props) {
                             }
                         }}
                     >
+                       
+
                         <Box
                             styleSheet={{
                                 marginBottom: '8px',
                             }}
                         >
-                            <Image
-                                styleSheet={{
-                                    width: '25px',
-                                    height: '25px',
-                                    borderRadius: '50%',
-                                    display: 'inline-block',
-                                    marginRight: '8px',
-                                }}
-                                src={`https://github.com/${message.from}.png`}
-                            />
+
+
+                        {/* <Image
+                            styleSheet={{
+                                width: '25px',
+                                height: '25px',
+                                borderRadius: '50%',
+                                display: 'inline-block',
+                                marginRight: '8px',
+                            }}
+                            src={`https://github.com/${message.from}.png`}
+                        /> */}
+
+                          
+                                 <Profile gitUser={message.from}></Profile>
+                           
                             
                             <Text tag="strong">
                                 {message.from}
@@ -347,6 +355,8 @@ function MessageList(props) {
                             >
                                 {new Date(message.created_at).toLocaleString('da-DK', {dateStyle: 'short',timeStyle: 'short'})}
                             </Text>
+
+                            
 
                             <Button
                                 tag="span"
@@ -388,7 +398,8 @@ function MessageList(props) {
 
 
 
-                        <Profile gitUser={message.from}></Profile>
+                          
+
 
 
                         </Box>
