@@ -9,28 +9,7 @@ import appConfig from '../config.json';
 import { DataContext } from '../src/context/DataContext';
 
 
-function Title(props) {
-    // console.log(props);
-    // console.log(props.children);
-    const Tag = props.tag || 'h1';
-    // console.log(Tag)
-
-    return (
-        <>
-            <Tag>{props.children}</Tag>
-            <style jsx>{`
-                ${Tag} {
-                    color: ${appConfig.theme.colors.neutrals['800']};                   
-                    font-size: 24px;
-                    font-weight: 600;
-                    margin-bottom: 13px;
-                }            
-            `}</style>
-        </>
-    );
-}
-
-export default function HomePage() {
+export default function Index() {
     
     
     const dataGit = useContext(DataContext);
@@ -60,13 +39,12 @@ export default function HomePage() {
                             xs: 'column',
                             sm: 'row',
                         },
-                        width: '100%', maxWidth: '700px',
+                        width: '100%', maxWidth: '600px',
                         height: '42%',
                         borderRadius: '60px', padding: '42px', margin: '42px',
                         boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
                         backgroundColor: appConfig.theme.colors.neutrals[200],
-                        backgroundBlendMode: 'normal'
-                        
+                            
                     }}
                 >
                     {/* Formulário */}
@@ -95,9 +73,24 @@ export default function HomePage() {
 
                         }}
                     >
-                        <Title tag="h2">
+                     
+
+
+                        <Text
+                            variant="h2"
+                            styleSheet={{
+                                marginBottom: '42px',
+                                color: appConfig.theme.colors.neutrals['800'],                  
+                                fontSize: '24px',
+                                fontWeight: '600',
+                                marginBottom: '13px',
+                                backgroundBlendMode: 'multiply'
+                            }}
+                        >
                             Welcome `:)
-                        </Title>
+
+
+                        </Text>
 
                         <Text
                             variant="body3"
@@ -198,10 +191,7 @@ export default function HomePage() {
                                 textAlign: 'center',
                             }}
                         >
-                            {/* <p> {dataGit.dataGit?.name} </p> */}
-                            {/* <p> {dataGit.dataGit?.company} </p> */}
-                            {/* <p> {dataGit.dataGit?.blog} </p> */}
-                            {/* <p> {dataGit.dataGit?.location} </p>  */}
+                           
                             
                         </Text>
 
@@ -212,30 +202,3 @@ export default function HomePage() {
         </>
     );
 }
-
-
-// This gets called on every request
-// export const getStaticProps = async () => {
-
-//     // Fetch data from external API
-//     const response = await fetch('https://api.github.com/users/aguirreSL');
-//     const dataGit = await response.json();
-
-//     console.log(dataGit);
-//     console.log(dataGit.login);
-
-    
-    
-
-//     // const dataGitName = data.map((item) => item.name);
-//     // const dataGitBlog = data.map((item) => item.blog);
-//     // const dataGitLocation = data.map((item) => item.location);
-
-
-//     return {
-//         props: { 
-//             dataGit: dataGit
-//         }
-//     }
-   
-// }

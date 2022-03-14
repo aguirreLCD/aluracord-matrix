@@ -44,23 +44,4 @@ export const DataProvider = (props) => {
 }
 
 
-                            
-                            
-// export async function getStaticProps() {
-
-//     // Fetch data from external API
-//     const response = await fetch('https://api.github.com/users/aguirreLCD');
-//     const dataGit = await response.json();
-
-//     console.log(dataGit);
-//     console.log(dataGit.login);
-
-
-
-//     return {
-//         props: { 
-//             dataGit: [],
-//         }
-//     }
-   
-// }
+                      

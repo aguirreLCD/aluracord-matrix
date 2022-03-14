@@ -11,6 +11,7 @@ function GlobalStyle() {
                 box-sizing: border-box;
                 list-style: none;
                 transition: background-image .4s;
+
             }
             /* visited link */
             a:visited {
@@ -29,9 +30,13 @@ function GlobalStyle() {
                 flex: 1;
             }
             #__next {
+                display: flex;
+
                 flex: 1;
             }
             #__next > * {
+                display: flex;
+
                 flex: 1;
             }
             
