@@ -1,17 +1,54 @@
 import { Box, Button, Text, TextField, Image } from '@skynexui/components';
 
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import { useRouter } from 'next/router';
 
 import appConfig from '../config.json';
 
+import { DataContext } from '../src/context/DataContext';
+
+
 
 export default function Index() {
+
+    const [username, setUsername] = useState('');
+    console.log("index", username);
     
     const rout = useRouter();
 
-    const [username, setUsername] = useState('');
+    const [data, setData] = useState({});
+
+    function checkIfUserExists(username) {
+        fetch(`https://api.github.com/users/${username}`)
+        .then(async (res) => {
+        if(res.status === 404) {
+            console.error('User Not Found. Error:');
+            rout.push("/404");
+
+            return
+        } else {
+            console.log(res);
+            return await res.json();
+        }
+        })
+        .then((data) => {
+        if (data) {
+            console.log(data);
+            setData(data);
+        }
+        })
+        .catch(error => {
+            console.error('User Not Found. Error: ', error);
+        })
+    }
+    console.log("index", data);
+
+    // const dataGit = useContext(DataContext);
+    // console.log("index", dataGit);
+
+   
+
 
     return (
         <>
@@ -43,16 +80,18 @@ export default function Index() {
                     {/* Formulário */}
                     <Box
                         as="form"
-                        onSubmit={function (event) {
+                        onSubmit={((event) => {
                             event.preventDefault();
-                            console.log(username);
-                            if ({username} === undefined) {
+                            checkIfUserExists(username);
+                            if (username === "undefined") {
+                                console.log("form", username);
                                 rout.push("/404");
                             } else {
                                 // rout.push('/chat');
                                 rout.push(`/chat?username=${username}`);
                             }
-                        }}
+                        }) 
+                        }
                         styleSheet={{
                             display: 'flex',
                             flexDirection: 'column', 
@@ -65,9 +104,6 @@ export default function Index() {
 
                         }}
                     >
-                     
-
-
                         <Text
                             variant="h2"
                             styleSheet={{
@@ -80,8 +116,6 @@ export default function Index() {
                             }}
                         >
                             Welcome `:)
-
-
                         </Text>
 
                         <Text
@@ -103,8 +137,9 @@ export default function Index() {
                             value={username}
                             onChange={function (event) {
                                 // console.log("user type", event.target.value);
-                                const valueUserType = event.target.value;
-                                setUsername(valueUserType);
+                                const username = event.target.value;
+                                setUsername(username);
+                                // console.log(username);
                             }}
                             fullWidth
                             textFieldColors={{

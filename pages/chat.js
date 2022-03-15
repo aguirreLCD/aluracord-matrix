@@ -13,6 +13,8 @@ const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 
 export default function ChatPage() {
+    console.log("chat");
+    
 
     function listenMessage(response) {
         return supabaseClient
@@ -300,6 +302,7 @@ function MessageList(props) {
                 marginBottom: '16px',
             }}
         >
+            
             {props.messages.map((message) => {
                 return (
                     <Text
@@ -338,7 +341,10 @@ function MessageList(props) {
                         /> */}
 
                           
-                                 <Profile gitUser={message.from}></Profile>
+                          
+                            <Profile gitUser={message.from}></Profile>
+
+                            
                            
                             
                             <Text tag="strong">
@@ -421,6 +427,7 @@ function MessageList(props) {
                     </Text>
                 );
             })}
+
         </Box>
      
     )

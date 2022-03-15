@@ -47,11 +47,14 @@ function GlobalStyle() {
 
 
 export default function MyApp({ Component, pageProps }) {
+    console.log("app");
+
 
     return(
-        
-        <DataProvider>
-            <Head>
+
+        <>
+
+         <Head>
                 <meta charSet="utf-8" />
                 <link rel="icon" href="images/favicon-16x16.png" />
                 <title>Fun With Chats</title>
@@ -60,8 +63,13 @@ export default function MyApp({ Component, pageProps }) {
             <GlobalStyle />
 
             <Component {...pageProps} />
+        
+        
 
-        </DataProvider>
+
+
+        </>
+        
         
 
         

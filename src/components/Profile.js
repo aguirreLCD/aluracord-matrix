@@ -4,6 +4,8 @@ import appConfig from '../../config.json';
 import { useRouter } from 'next/router';
 
 export function Profile({gitUser}) {
+  console.log("profile");
+
   const [isOpen, setOpenState] = useState('');
 
   const [isLoading, setLoading] = useState(false);
@@ -12,7 +14,7 @@ export function Profile({gitUser}) {
     
   const [dataGit, setDataGit] = useState([]);
 
-  // const rout = useRouter();
+  const rout = useRouter();
   // const gitUser = rout.query.username;
 //   console.log("Profile", username);
 
@@ -32,14 +34,13 @@ export function Profile({gitUser}) {
 
 
   useEffect(() => {
+    
         setLoading(true);
-
         fetch(`https://api.github.com/users/${gitUser}`)
         .then((dataGit) => dataGit.json())
         .then((dataGit) => {
-            // console.log(dataGit);
+            // console.log(dataGit.dataGit.message);
             setDataGit(dataGit);     
-            // console.log(dataGit);
         })
         .catch((err) => {
             setError(err);
@@ -105,14 +106,14 @@ export function Profile({gitUser}) {
         onClick={() => setOpenState(!isOpen)}
       /> */}
       {isOpen && (
-        <Box
+        <Box 
           styleSheet={{
             display: 'flex',
             flexDirection: 'column',
             borderRadius: '5px',
             position: 'fixed',
             top: '30%',
-            left: '30%',
+            left: '20%',
             // margin: '50%',
             // padding: '50%',
             backgroundColor: appConfig.theme.colors.neutrals[800],
@@ -171,6 +172,8 @@ export function Profile({gitUser}) {
                   // }
               }}
 
+
+
               
             />
           
@@ -184,9 +187,8 @@ export function Profile({gitUser}) {
               variant='tertiary'
               // colorVariant='dark'
               tag='span'
-              size='xs'                     
+              size='sm'                     
               iconName='comments'
-              onClick={() => setOpenState(isOpen)}
           />
 
 

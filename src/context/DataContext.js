@@ -1,55 +1,54 @@
 
-import { useState, useEffect, createContext } from 'react';
+// import { useState, useEffect, createContext } from 'react';
 
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 
+// export const DataContext = createContext();
 
-export const DataContext = createContext();
+// export const DataProvider = (props) => {
 
+//     console.log("datacontext");
 
-export const DataProvider = (props) => {
     
-    const router = useRouter();
+//     const router = useRouter();
 
-    const username = router.query.username;
+//     const username = router.query.username;
 
-    // console.log("username", username);
+//     console.log("username", username);
 
-    const [isLoading, setLoading] = useState(false);
+//     const [isLoading, setLoading] = useState(false);
     
-    const [error, setError] = useState(null);
+//     const [error, setError] = useState(null);
     
-    const [dataGit, setDataGit] = useState([]);
+//     const [dataGit, setDataGit] = useState([]);
 
+//     useEffect(() => {
+//         setLoading(true);
+//         console.log("username", username);
+//         fetch(`https://api.github.com/users/${username}`)
+//         .then((dataGit) => dataGit.json())
+//         .then((dataGit) => {
+//             console.log(dataGit.message);
+//             setDataGit(dataGit);     
+//         })
+//         .catch((err) => {
+//             setError(err);
+//         })
+//         .finally(() => {
+//             setLoading(false)
+//         });
+//     }, [username]);
 
-    useEffect(() => {
-        setLoading(true);
-
-        fetch(`https://api.github.com/users/${username}`)
-        .then((dataGit) => dataGit.json())
-        .then((dataGit) => {
-            // console.log(dataGit);
-            setDataGit(dataGit);     
-            // console.log(dataGit);
-        })
-        .catch((err) => {
-            setError(err);
-        })
-        .finally(() => {
-            setLoading(false)
-        });
-    }, [username]);
-
-    return (
-        <DataContext.Provider value={{dataGit, isLoading, error}}>
+//     return (
+//         <DataContext.Provider value={{dataGit, isLoading, error, username}}>
             
-            {props.children}
+//             {props.children}
 
-        </DataContext.Provider>
+//         </DataContext.Provider>
 
 
-    );
-}
+//     );
+// }
 
 
                       
