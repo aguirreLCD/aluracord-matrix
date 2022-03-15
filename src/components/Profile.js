@@ -4,7 +4,7 @@ import appConfig from '../../config.json';
 import { useRouter } from 'next/router';
 
 export function Profile({gitUser}) {
-  console.log("profile");
+  // console.log("profile");
 
   const [isOpen, setOpenState] = useState('');
 
@@ -33,24 +33,49 @@ export function Profile({gitUser}) {
   // if (error) console.log(error);
 
 
-  useEffect(() => {
-    
-        setLoading(true);
+
+  function getGitProfile(gitUser) {
         fetch(`https://api.github.com/users/${gitUser}`)
-        .then((dataGit) => dataGit.json())
+        .then(async (res) => {
+        if(res.status === 404) {
+            console.error('User Not Found. Error:');
+            // rout.push("/404");
+
+            return
+        } else {
+            // console.log(res);
+            return await res.json();
+        }
+        })
         .then((dataGit) => {
-            // console.log(dataGit.dataGit.message);
-            setDataGit(dataGit);     
+        if (dataGit) {
+            // console.log(dataGit);
+            setDataGit(dataGit);
+        }
         })
-        .catch((err) => {
-            setError(err);
+        .catch(error => {
+            console.error('User Not Found. Error: ', error);
         })
-        .finally(() => {
-            setLoading(false)
-        });
-        console.log(gitUser);
-        return gitUser;
-    }, [gitUser]);
+    }
+
+  // useEffect(() => {
+    
+  //       setLoading(true);
+  //       fetch(`https://api.github.com/users/${gitUser}`)
+  //       .then((dataGit) => dataGit.json())
+  //       .then((dataGit) => {
+  //           // console.log(dataGit.dataGit.message);
+  //           setDataGit(dataGit);     
+  //       })
+  //       .catch((err) => {
+  //           setError(err);
+  //       })
+  //       .finally(() => {
+  //           setLoading(false)
+  //       });
+  //       console.log(gitUser);
+  //       return gitUser;
+  //   }, [gitUser]);
 
 
 
@@ -75,36 +100,12 @@ export function Profile({gitUser}) {
                     height: '36px'
                 }
             }}
-            onClick={() => setOpenState(!isOpen)}
+            onClick={() => {
+              getGitProfile(gitUser);
+              setOpenState(!isOpen);
+            }}
         />
 
- 
-
-
-
-{/* 
-      <Button
-        styleSheet={{
-          borderRadius: '50%',
-          padding: '0 3px 0 0',
-          minWidth: '20px',
-          minHeight: '20px',
-          fontSize: '21px',
-          marginBottom: '8px',
-          lineHeight: '0',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: appConfig.theme.colors.neutrals[300],
-          filter: isOpen ? 'grayscale(0)' : 'grayscale(1)',
-          hover: {
-            filter: 'grayscale(0)',
-          }
-        }}
-        // label=""
-        iconName='addressCard'
-        onClick={() => setOpenState(!isOpen)}
-      /> */}
       {isOpen && (
         <Box 
           styleSheet={{
@@ -129,7 +130,7 @@ export function Profile({gitUser}) {
             padding: '16px',
             boxShadow: 'rgba(4, 4, 5, 0.15) 0px 0px 0px 1px, rgba(0, 0, 0, 0.24) 0px 8px 16px 0px',
           }}
-          onClick={() => setOpenState(false)}
+          onClick={() => setOpenState(!isOpen)}
         >
 
           <Text
@@ -172,8 +173,6 @@ export function Profile({gitUser}) {
                   // }
               }}
 
-
-
               
             />
           
@@ -199,6 +198,7 @@ export function Profile({gitUser}) {
                     }}
                     tag="li"
                 >
+
                        
                     <p> {dataGit?.name}  </p> 
                         <p> {dataGit?.login}</p>
@@ -214,19 +214,12 @@ export function Profile({gitUser}) {
                         <p> {dataGit?.followers} followers</p> 
                         <p> {dataGit?.following} following</p> 
                         <p> {dataGit?.email}</p> 
-
                                 
                     </Text>
 
-                    
-
-
           </Box>
-          
-
          
         </Box>
-        
         
       )}
        

@@ -13,7 +13,7 @@ const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 
 export default function ChatPage() {
-    console.log("chat");
+    // console.log("chat");
     
 
     function listenMessage(response) {

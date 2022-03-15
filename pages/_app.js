@@ -47,7 +47,7 @@ function GlobalStyle() {
 
 
 export default function MyApp({ Component, pageProps }) {
-    console.log("app");
+    // console.log("app");
 
 
     return(

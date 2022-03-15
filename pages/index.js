@@ -13,7 +13,7 @@ import { DataContext } from '../src/context/DataContext';
 export default function Index() {
 
     const [username, setUsername] = useState('');
-    console.log("index", username);
+    // console.log("index", username);
     
     const rout = useRouter();
 
@@ -28,13 +28,13 @@ export default function Index() {
 
             return
         } else {
-            console.log(res);
+            // console.log(res);
             return await res.json();
         }
         })
         .then((data) => {
         if (data) {
-            console.log(data);
+            // console.log(data);
             setData(data);
         }
         })
@@ -42,7 +42,7 @@ export default function Index() {
             console.error('User Not Found. Error: ', error);
         })
     }
-    console.log("index", data);
+    // console.log("index", data);
 
     // const dataGit = useContext(DataContext);
     // console.log("index", dataGit);
