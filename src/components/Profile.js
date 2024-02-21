@@ -33,14 +33,12 @@ export function Profile({gitUser}) {
   // if (error) console.log(error);
 
 
-
   function getGitProfile(gitUser) {
         fetch(`https://api.github.com/users/${gitUser}`)
         .then(async (res) => {
         if(res.status === 404) {
             console.error('User Not Found. Error:');
             // rout.push("/404");
-
             return
         } else {
             // console.log(res);
@@ -48,10 +46,10 @@ export function Profile({gitUser}) {
         }
         })
         .then((dataGit) => {
-        if (dataGit) {
-            // console.log(dataGit);
-            setDataGit(dataGit);
-        }
+          if (dataGit) {
+              // console.log(dataGit);
+              setDataGit(dataGit);
+          }
         })
         .catch(error => {
             console.error('User Not Found. Error: ', error);

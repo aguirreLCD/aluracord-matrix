@@ -1,5 +1,5 @@
 import { Box, Text, TextField, Image, Button, Icon } from '@skynexui/components';
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import appConfig from '../config.json';
 import { createClient } from '@supabase/supabase-js';
 import { useRouter } from 'next/router';
@@ -38,12 +38,12 @@ export default function ChatPage() {
     const loggedUser = router.query.username;
 
     // keep the msg
-    const [message, setMessage] = React.useState('');
+    const [message, setMessage] = useState('');
 
     // list of msg
-    const [messageList, setMessageList] = React.useState([]);
+    const [messageList, setMessageList] = useState([]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         supabaseClient
             .from('messages')
             .select('*')

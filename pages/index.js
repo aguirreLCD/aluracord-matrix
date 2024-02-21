@@ -8,8 +8,6 @@ import appConfig from '../config.json';
 
 import { DataContext } from '../src/context/DataContext';
 
-
-
 export default function Index() {
 
     const [username, setUsername] = useState('');
